@@ -1,0 +1,160 @@
+{
+  "method": "frozen mvm_v1 assignments plus deterministic allocation of newly usable families",
+  "hash": "sha256(\"mvm_v2|<workload>|<query_family>\")",
+  "workloads": {
+    "calcite": {
+      "train_families": [
+        "testAggregateMerge1",
+        "testAggregateMergeSum0",
+        "testAggregateRemove1",
+        "testAnyInProjectNonNullable",
+        "testBitOrReuseDistinctAttrWithMixedOptionality",
+        "testDistinctCountWithExpandSumType",
+        "testDistinctWithGrouping",
+        "testEmptyFilterProjectUnion",
+        "testEmptyIntersect",
+        "testEmptyMinus",
+        "testEmptyProject",
+        "testExistsWithAtLeastOneRowSubQuery",
+        "testIsNullPushDown",
+        "testIsNullPushDown2",
+        "testMaxReuseDistinctAttrWithMixedOptionality",
+        "testMinReuseDistinctAttrWithMixedOptionality",
+        "testNotPushFilterPastWindowWhenPredicateNotOnPartitionKey",
+        "testPushAggregateFunctionsThroughJoin",
+        "testPushFilterPastAggWithGroupingSets2",
+        "testReduceConstantsIsNull",
+        "testReduceConstantsNegated",
+        "testReduceConstantsNegatedInverted",
+        "testReduceValuesToEmpty"
+      ],
+      "test_families": [
+        "testAggregateJoinRemove4",
+        "testAggregateJoinRemove5",
+        "testPullConstantIntoFilter",
+        "testReduceConstantsCalc",
+        "testSumAndDistinctSumWithExpandSumType"
+      ],
+      "newly_allocated_families": []
+    },
+    "dsb": {
+      "train_families": [
+        "query001",
+        "query010",
+        "query014",
+        "query018",
+        "query019",
+        "query023",
+        "query027",
+        "query030",
+        "query038",
+        "query039",
+        "query040",
+        "query050",
+        "query054",
+        "query058",
+        "query064",
+        "query065",
+        "query069",
+        "query072",
+        "query075",
+        "query080",
+        "query083",
+        "query084",
+        "query085",
+        "query091",
+        "query099",
+        "query100",
+        "query101",
+        "query102"
+      ],
+      "test_families": [
+        "query013",
+        "query025",
+        "query031",
+        "query059",
+        "query081",
+        "query087",
+        "query092",
+        "query094"
+      ],
+      "newly_allocated_families": [
+        "query092",
+        "query081"
+      ]
+    },
+    "imdb": {
+      "train_families": [
+        "query001",
+        "query003",
+        "query004",
+        "query005",
+        "query008",
+        "query009",
+        "query010",
+        "query011",
+        "query013",
+        "query014",
+        "query016",
+        "query018",
+        "query019",
+        "query020",
+        "query021",
+        "query022",
+        "query024",
+        "query025",
+        "query026",
+        "query027",
+        "query028",
+        "query029",
+        "query030",
+        "query031",
+        "query032",
+        "query033"
+      ],
+      "test_families": [
+        "query002",
+        "query006",
+        "query007",
+        "query012",
+        "query017",
+        "query023"
+      ],
+      "newly_allocated_families": []
+    },
+    "tpch": {
+      "train_families": [
+        "query10",
+        "query11",
+        "query13",
+        "query14",
+        "query15",
+        "query16",
+        "query18",
+        "query19",
+        "query2",
+        "query3",
+        "query5",
+        "query8",
+        "query_scenario_b",
+        "query_scenario_c",
+        "query_scenario_f",
+        "query_scenario_g",
+        "query_scenario_h"
+      ],
+      "test_families": [
+        "query12",
+        "query22",
+        "query6",
+        "query7",
+        "query9"
+      ],
+      "newly_allocated_families": [
+        "query22",
+        "query_scenario_c",
+        "query9",
+        "query2"
+      ]
+    }
+  }
+}

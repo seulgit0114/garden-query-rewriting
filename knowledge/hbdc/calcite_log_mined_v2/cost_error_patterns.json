@@ -1,0 +1,522 @@
+{
+  "rules": {
+    "AGGREGATE_PROJECT_MERGE": {
+      "count": 38,
+      "cost_error_count": 14,
+      "cost_error_rate": 0.3684210526315789,
+      "labels": {
+        "FN": 12,
+        "TP": 22,
+        "FP": 2,
+        "TN": 2
+      },
+      "median_improvement_pct": 68.55216674185726
+    },
+    "PROJECT_REMOVE": {
+      "count": 21,
+      "cost_error_count": 7,
+      "cost_error_rate": 0.3333333333333333,
+      "labels": {
+        "FN": 7,
+        "TP": 12,
+        "TN": 2
+      },
+      "median_improvement_pct": 88.60636790694207
+    },
+    "FILTER_PROJECT_TRANSPOSE": {
+      "count": 6,
+      "cost_error_count": 4,
+      "cost_error_rate": 0.6666666666666666,
+      "labels": {
+        "FN": 4,
+        "TN": 2
+      },
+      "median_improvement_pct": 72.93993740079806
+    },
+    "AGGREGATE_EXPAND_DISTINCT_AGGREGATES": {
+      "count": 17,
+      "cost_error_count": 3,
+      "cost_error_rate": 0.17647058823529413,
+      "labels": {
+        "TP": 14,
+        "FN": 3
+      },
+      "median_improvement_pct": 73.85942923704135
+    },
+    "FILTER_REDUCE_EXPRESSIONS": {
+      "count": 12,
+      "cost_error_count": 3,
+      "cost_error_rate": 0.25,
+      "labels": {
+        "TP": 9,
+        "FP": 3
+      },
+      "median_improvement_pct": 81.43035567817464
+    },
+    "FILTER_VALUES_MERGE": {
+      "count": 10,
+      "cost_error_count": 2,
+      "cost_error_rate": 0.2,
+      "labels": {
+        "TP": 8,
+        "FP": 2
+      },
+      "median_improvement_pct": 98.94420903954801
+    },
+    "FILTER_SET_OP_TRANSPOSE": {
+      "count": 2,
+      "cost_error_count": 2,
+      "cost_error_rate": 1.0,
+      "labels": {
+        "FN": 2
+      },
+      "median_improvement_pct": 69.83102465861086
+    },
+    "PROJECT_JOIN_TRANSPOSE": {
+      "count": 7,
+      "cost_error_count": 1,
+      "cost_error_rate": 0.14285714285714285,
+      "labels": {
+        "TP": 6,
+        "FN": 1
+      },
+      "median_improvement_pct": 69.27131494235597
+    },
+    "PROJECT_REDUCE_EXPRESSIONS": {
+      "count": 2,
+      "cost_error_count": 1,
+      "cost_error_rate": 0.5,
+      "labels": {
+        "FN": 1,
+        "TN": 1
+      },
+      "median_improvement_pct": -1478.2828282828284
+    },
+    "FILTER_INTO_JOIN": {
+      "count": 1,
+      "cost_error_count": 1,
+      "cost_error_rate": 1.0,
+      "labels": {
+        "FN": 1
+      },
+      "median_improvement_pct": 2.248555751993315
+    },
+    "AGGREGATE_REMOVE": {
+      "count": 8,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 8
+      },
+      "median_improvement_pct": 90.60673038988834
+    },
+    "JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE": {
+      "count": 7,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 7
+      },
+      "median_improvement_pct": 73.85942923704135
+    },
+    "JOIN_PUSH_TRANSITIVE_PREDICATES": {
+      "count": 6,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 6
+      },
+      "median_improvement_pct": 73.86051063385548
+    },
+    "PROJECT_FILTER_TRANSPOSE": {
+      "count": 5,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 5
+      },
+      "median_improvement_pct": 69.27131494235597
+    },
+    "JOIN_ADD_REDUNDANT_SEMI_JOIN": {
+      "count": 3,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 3
+      },
+      "median_improvement_pct": 71.98056236658088
+    },
+    "AGGREGATE_EXPAND_DISTINCT_AGGREGATES_TO_JOIN": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 72.40552856381335
+    },
+    "FILTER_AGGREGATE_TRANSPOSE": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 94.22798478053274
+    },
+    "PROJECT_AGGREGATE_MERGE": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 47.57655317810599
+    },
+    "PROJECT_SUB_QUERY_TO_CORRELATE": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 71.47474881770972
+    },
+    "SORT_PROJECT_TRANSPOSE": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 74.88986784140968
+    },
+    "AGGREGATE_JOIN_TRANSPOSE_EXTENDED": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 88.95216777777777
+    },
+    "PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TN": 1
+      },
+      "median_improvement_pct": -276.9219410037947
+    }
+  },
+  "rule_sequences": {
+    "AGGREGATE_PROJECT_MERGE": {
+      "count": 16,
+      "cost_error_count": 12,
+      "cost_error_rate": 0.75,
+      "labels": {
+        "FP": 2,
+        "TN": 2,
+        "TP": 2,
+        "FN": 10
+      },
+      "median_improvement_pct": 12.753534063492832
+    },
+    "FILTER_REDUCE_EXPRESSIONS": {
+      "count": 6,
+      "cost_error_count": 3,
+      "cost_error_rate": 0.5,
+      "labels": {
+        "TP": 3,
+        "FP": 3
+      },
+      "median_improvement_pct": -129.6069962064457
+    },
+    "FILTER_PROJECT_TRANSPOSE > PROJECT_REMOVE": {
+      "count": 4,
+      "cost_error_count": 3,
+      "cost_error_rate": 0.75,
+      "labels": {
+        "FN": 3,
+        "TN": 1
+      },
+      "median_improvement_pct": 72.93993740079806
+    },
+    "AGGREGATE_EXPAND_DISTINCT_AGGREGATES": {
+      "count": 6,
+      "cost_error_count": 2,
+      "cost_error_rate": 0.3333333333333333,
+      "labels": {
+        "TP": 4,
+        "FN": 2
+      },
+      "median_improvement_pct": 79.6107634889483
+    },
+    "FILTER_VALUES_MERGE": {
+      "count": 6,
+      "cost_error_count": 2,
+      "cost_error_rate": 0.3333333333333333,
+      "labels": {
+        "TP": 4,
+        "FP": 2
+      },
+      "median_improvement_pct": 78.88207809511913
+    },
+    "PROJECT_REMOVE": {
+      "count": 2,
+      "cost_error_count": 2,
+      "cost_error_rate": 1.0,
+      "labels": {
+        "FN": 2
+      },
+      "median_improvement_pct": 41.17703634125005
+    },
+    "PROJECT_REMOVE > FILTER_SET_OP_TRANSPOSE": {
+      "count": 2,
+      "cost_error_count": 2,
+      "cost_error_rate": 1.0,
+      "labels": {
+        "FN": 2
+      },
+      "median_improvement_pct": 69.83102465861086
+    },
+    "AGGREGATE_EXPAND_DISTINCT_AGGREGATES > AGGREGATE_PROJECT_MERGE": {
+      "count": 4,
+      "cost_error_count": 1,
+      "cost_error_rate": 0.25,
+      "labels": {
+        "TP": 3,
+        "FN": 1
+      },
+      "median_improvement_pct": 69.23673193734594
+    },
+    "PROJECT_JOIN_TRANSPOSE": {
+      "count": 2,
+      "cost_error_count": 1,
+      "cost_error_rate": 0.5,
+      "labels": {
+        "TP": 1,
+        "FN": 1
+      },
+      "median_improvement_pct": 45.239652082017216
+    },
+    "PROJECT_REDUCE_EXPRESSIONS > FILTER_PROJECT_TRANSPOSE": {
+      "count": 2,
+      "cost_error_count": 1,
+      "cost_error_rate": 0.5,
+      "labels": {
+        "FN": 1,
+        "TN": 1
+      },
+      "median_improvement_pct": -1478.2828282828284
+    },
+    "FILTER_INTO_JOIN > AGGREGATE_PROJECT_MERGE": {
+      "count": 1,
+      "cost_error_count": 1,
+      "cost_error_rate": 1.0,
+      "labels": {
+        "FN": 1
+      },
+      "median_improvement_pct": 2.248555751993315
+    },
+    "AGGREGATE_PROJECT_MERGE > AGGREGATE_REMOVE": {
+      "count": 6,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 6
+      },
+      "median_improvement_pct": 91.94785401564872
+    },
+    "FILTER_REDUCE_EXPRESSIONS > PROJECT_REMOVE": {
+      "count": 4,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 4
+      },
+      "median_improvement_pct": 99.99999479116134
+    },
+    "FILTER_AGGREGATE_TRANSPOSE > PROJECT_REMOVE": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 94.22798478053274
+    },
+    "FILTER_VALUES_MERGE > PROJECT_REMOVE": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 99.0391636880741
+    },
+    "PROJECT_AGGREGATE_MERGE": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 47.57655317810599
+    },
+    "PROJECT_REMOVE > FILTER_REDUCE_EXPRESSIONS": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 75.04601586241209
+    },
+    "PROJECT_REMOVE > FILTER_VALUES_MERGE": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 99.85689402028169
+    },
+    "PROJECT_SUB_QUERY_TO_CORRELATE": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 71.47474881770972
+    },
+    "SORT_PROJECT_TRANSPOSE": {
+      "count": 2,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 2
+      },
+      "median_improvement_pct": 74.88986784140968
+    },
+    "AGGREGATE_PROJECT_MERGE > AGGREGATE_EXPAND_DISTINCT_AGGREGATES": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 81.07323077590772
+    },
+    "AGGREGATE_PROJECT_MERGE > AGGREGATE_EXPAND_DISTINCT_AGGREGATES_TO_JOIN": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 70.94946509695707
+    },
+    "AGGREGATE_PROJECT_MERGE > AGGREGATE_JOIN_TRANSPOSE_EXTENDED": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 88.95216777777777
+    },
+    "JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE > AGGREGATE_EXPAND_DISTINCT_AGGREGATES > AGGREGATE_PROJECT_MERGE > JOIN_PUSH_TRANSITIVE_PREDICATES": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 73.85942923704135
+    },
+    "JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE > AGGREGATE_EXPAND_DISTINCT_AGGREGATES_TO_JOIN > AGGREGATE_PROJECT_MERGE > JOIN_PUSH_TRANSITIVE_PREDICATES": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 73.86159203066963
+    },
+    "JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE > AGGREGATE_PROJECT_MERGE > AGGREGATE_EXPAND_DISTINCT_AGGREGATES > JOIN_PUSH_TRANSITIVE_PREDICATES": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 80.47368709840481
+    },
+    "JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE > JOIN_ADD_REDUNDANT_SEMI_JOIN > AGGREGATE_EXPAND_DISTINCT_AGGREGATES > AGGREGATE_PROJECT_MERGE > JOIN_PUSH_TRANSITIVE_PREDICATES": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 76.87655617809408
+    },
+    "PROJECT_FILTER_TRANSPOSE > AGGREGATE_EXPAND_DISTINCT_AGGREGATES > PROJECT_JOIN_TRANSPOSE": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 73.78613137203882
+    },
+    "PROJECT_FILTER_TRANSPOSE > AGGREGATE_PROJECT_MERGE > AGGREGATE_REMOVE > PROJECT_JOIN_TRANSPOSE": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 66.08464886277339
+    },
+    "PROJECT_FILTER_TRANSPOSE > JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE > AGGREGATE_EXPAND_DISTINCT_AGGREGATES > AGGREGATE_PROJECT_MERGE > JOIN_PUSH_TRANSITIVE_PREDICATES > PROJECT_JOIN_TRANSPOSE": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 69.27131494235597
+    },
+    "PROJECT_FILTER_TRANSPOSE > JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE > JOIN_ADD_REDUNDANT_SEMI_JOIN > AGGREGATE_EXPAND_DISTINCT_AGGREGATES > AGGREGATE_PROJECT_MERGE > PROJECT_JOIN_TRANSPOSE > JOIN_PUSH_TRANSITIVE_PREDICATES": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 71.98056236658088
+    },
+    "PROJECT_FILTER_TRANSPOSE > JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE > JOIN_ADD_REDUNDANT_SEMI_JOIN > AGGREGATE_REMOVE > AGGREGATE_PROJECT_MERGE > PROJECT_JOIN_TRANSPOSE": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TP": 1
+      },
+      "median_improvement_pct": 64.2547464901433
+    },
+    "PROJECT_REMOVE > PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW": {
+      "count": 1,
+      "cost_error_count": 0,
+      "cost_error_rate": 0.0,
+      "labels": {
+        "TN": 1
+      },
+      "median_improvement_pct": -276.9219410037947
+    }
+  }
+}

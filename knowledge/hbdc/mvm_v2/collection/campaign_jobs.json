@@ -1,0 +1,25 @@
+{
+  "submitted_at": "2026-09-07T13:42:00+09:00",
+  "rewrite": {
+    "imdb": 2167926,
+    "tpch": 2168096
+  },
+  "evaluation": {
+    "imdb": 2167928,
+    "tpch": 2167929
+  },
+  "merge_and_audit": 2167930,
+  "phase2_revalidation": 2167936,
+  "conditional_phase3_to_phase5": 2168037,
+  "completion_audit": 2168180,
+  "dependency_order": [
+    "rewrite",
+    "equivalence_and_paired_latency",
+    "merge_and_audit",
+    "phase2_revalidation",
+    "failure_backtracking_if_needed",
+    "plan_context_if_needed",
+    "plan_residual_comparison_if_needed"
+  ],
+  "note": "TPC-H rewrite was moved from cancelled job 2167927 to 2168072 and then 2168096; evaluation dependency was updated. Failed 0/25 GPU-offload attempts 2167895, 2167896, and 2168072 are not data-producing campaign jobs."
+}

@@ -1,0 +1,59 @@
+{
+  "name": "hbdc_calcite_log_mined_v2",
+  "created_from": "${GARDEN_ROOT}/results/llm-agent",
+  "base_candidates": "${GARDEN_ROOT}/my_rewriter/query_sets/mvm_v2/candidates.jsonl",
+  "base_candidates_sha256": "4db5e9a23efe584e1b83eae04192167b22e8ae5960fcc19ad03c9a6433f2f3e5",
+  "base_split_sha256": "64f2d6fd33e43a503aee493ec5925a2ccb027c7f4d44c499a5e4dfa3d2efbce6",
+  "filters": {
+    "strict_equivalence": [
+      "equivalent_full_scale",
+      "equivalent_sf1",
+      "formally_verified",
+      "verified_on_full_scale",
+      "verified_on_sf1"
+    ],
+    "micro_equivalence_allowed": false,
+    "minimum_absolute_improvement_pct": 2.0,
+    "minimum_replicate_sign_agreement": 0.6666666666666666,
+    "base_calcite44_original_sql_allowed_in_delta": "only from the independent exhaustive crossover; runtime leave-family-out required",
+    "dedup_key": "original_sql+rewritten_sql+ordered_rules+distribution+evidence_partition"
+  },
+  "counts": {
+    "raw_observations": 457,
+    "deduplicated_candidates": 257,
+    "heldout_eval_candidates": 140,
+    "cross_family_history_candidates": 94,
+    "development_candidates_before_quality_filter": 23,
+    "delta_candidates": 88,
+    "delta_families": 38,
+    "delta_labels": {
+      "FN": 23,
+      "TP": 53,
+      "FP": 7,
+      "TN": 5
+    },
+    "skipped": {
+      "campaign_missing_latency_or_equivalence": 7,
+      "equivalence:no_op": 175,
+      "equivalence:unverified_sf1_timeout": 94,
+      "equivalence:non_equivalent_sqlsolver": 5,
+      "no_rules_or_policy_fallback": 15,
+      "missing_input_cost": 9,
+      "micro_equivalence": 32,
+      "crossover_missing_measurement": 4
+    }
+  },
+  "files": {
+    "audit_all_candidates": "${GARDEN_ROOT}/my_rewriter/query_sets/hbdc_calcite_log_mined_v2/audit_all_candidates.jsonl",
+    "delta_candidates": "${GARDEN_ROOT}/my_rewriter/query_sets/hbdc_calcite_log_mined_v2/delta_candidates.jsonl",
+    "split": "${GARDEN_ROOT}/my_rewriter/query_sets/hbdc_calcite_log_mined_v2/split.json",
+    "cost_error_patterns": "${GARDEN_ROOT}/my_rewriter/query_sets/hbdc_calcite_log_mined_v2/cost_error_patterns.json"
+  },
+  "sha256": {
+    "audit_all_candidates": "c490575b0a7e27dabc3c0fb19aa73c617bf1831297aebc6552447958ed1078ba",
+    "delta_candidates": "ca9e2a1626e3fd442dedb6d21d0a81a8299916905b3cac91712137f2dac44fef",
+    "split": "5e4a54b5b568797d0dfba10fbedad6f9a8e792b016d823ed191595fd5f67c23e",
+    "cost_error_patterns": "de79497e3c1822a7fe7b94d2be0d2606139ed1ae202b97a59e50fcc57937d31d"
+  },
+  "paper_safety": "Modern Calcite44 campaigns remain evaluation-only. Older exhaustive-crossover rows are cross-family history and require family plus normalized-SQL exclusion at runtime."
+}

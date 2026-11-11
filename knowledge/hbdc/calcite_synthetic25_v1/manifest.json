@@ -1,0 +1,21 @@
+{
+  "name": "hbdc_calcite_synthetic25_v1",
+  "base_candidates": "${GARDEN_ROOT}/my_rewriter/query_sets/mvm_v2/candidates.jsonl",
+  "base_candidates_sha256": "4db5e9a23efe584e1b83eae04192167b22e8ae5960fcc19ad03c9a6433f2f3e5",
+  "base_split_sha256": "64f2d6fd33e43a503aee493ec5925a2ccb027c7f4d44c499a5e4dfa3d2efbce6",
+  "delta_candidates": 22,
+  "delta_families": 17,
+  "scope": "development knowledge only; base Calcite-44 evaluation families excluded",
+  "sources": {
+    "full_gate1_on": {
+      "rewrites_sha256": "b9c680ae9d2310e9f12d9793df7d5692668f1bd260f66c7de0925cf5978e9e4b",
+      "latencies_sha256": "103071fa17efa8138d1e101c7be44469632ec70aecdae409e6e11153640f38b0"
+    },
+    "gate1_off": {
+      "rewrites_sha256": "75e89221192128d5a91a9fc9ef2b061015587cd2ae1277c304127fe8b64255ea",
+      "latencies_sha256": "c3f047b8af3fe11a4034ee7809ab90fe38694129036db884b9ab8ec3260a2452"
+    }
+  },
+  "delta_sha256": "e7f0ad41a6159cee4a6e4d1f1c3e017ac1e927a8b6e686e542e65cc015c80828",
+  "split_sha256": "d5ec6bd5020f71b0ff8178c2afb1b12ca5ec43e19a17a8126714ff6e34e68fce"
+}

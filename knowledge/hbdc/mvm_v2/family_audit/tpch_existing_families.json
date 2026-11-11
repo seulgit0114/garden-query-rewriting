@@ -1,0 +1,870 @@
+[
+  {
+    "dataset_candidate_count": 4,
+    "family": "query1",
+    "labels": {
+      "UNVERIFIED": 4
+    },
+    "rules": {
+      "AGGREGATE_REDUCE_FUNCTIONS": 4,
+      "FILTER_REDUCE_EXPRESSIONS": 2,
+      "SORT_PROJECT_TRANSPOSE": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "EQUIVALENCE_FAILED",
+    "status_evidence": [
+      "no candidate has equivalent=true"
+    ],
+    "structural_fingerprints": [
+      "90172c23fd9384a9f647bc4688169b76a02fe6a090faa2d7de9e591e2f15fafd"
+    ],
+    "template_fingerprints": [
+      "b9ff0818bafc926a5d136d0547bbf2268e495c24549a1626acfeec047f2c15b9",
+      "e3f423a8c5850fc743a22f2e70f94a9f6fdb7e8ed174632e9c53a6c8b9ff7cf7"
+    ],
+    "usable_candidate_count": 0,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 3,
+    "family": "query10",
+    "labels": {
+      "FN": 2,
+      "TN": 1
+    },
+    "rules": {
+      "FILTER_INTO_JOIN": 3,
+      "JOIN_EXTRACT_FILTER": 1,
+      "JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER": 1,
+      "PROJECT_JOIN_TRANSPOSE": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "3 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "ec1d13cac7dbf23cd2d06dfe03ba73432cab7fa95953da2e3d9ecabaa75cd76d"
+    ],
+    "template_fingerprints": [
+      "36bf71ec93b9fd206c215b6da83b1669f897d2f3a4d4171a78074c8eed6f1229",
+      "6be1553c5b04273e19149a55e166a7e57e141e6e77c0f3d0e56dc1e929a6fb10"
+    ],
+    "usable_candidate_count": 3,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 5,
+    "family": "query11",
+    "labels": {
+      "FN": 2,
+      "TN": 3
+    },
+    "rules": {
+      "FILTER_INTO_JOIN": 3,
+      "FILTER_SUB_QUERY_TO_CORRELATE": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "3 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "cf24f3edbeb66c6bc1de869f5f095f6ab4762f38ad1d4bb1856a0f6a90f9ba56"
+    ],
+    "template_fingerprints": [
+      "ec55ee68384873a4ed5514bad3ae3b60f845af6d741f851abf168a8bf147bd15",
+      "f9ec733334cb9017fd3de7c560e1a461b560412e03240a758a1040427f5377a0"
+    ],
+    "usable_candidate_count": 3,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 13,
+    "family": "query12",
+    "labels": {
+      "FN": 7,
+      "FP": 2,
+      "TN": 2,
+      "TP": 2
+    },
+    "rules": {
+      "C_join": 5,
+      "FILTER_INTO_JOIN": 7,
+      "FILTER_REDUCE_EXPRESSIONS": 2,
+      "JOIN_ADD_REDUNDANT_SEMI_JOIN": 2,
+      "JOIN_EXTRACT_FILTER": 4,
+      "JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER": 2,
+      "PROJECT_JOIN_TRANSPOSE": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "12 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "2fca909e6520e882e04dd7e2ad06eba38a26ba86a6d7f400431fc5daa46d6396"
+    ],
+    "template_fingerprints": [
+      "78de9b137a18ab10cbf8123e607a043660a1ef7c23547739972038e4920df2d1",
+      "7944766fa74187cc73652293c04f34195e593cd16cdd4f4544dede4f38c4fc61"
+    ],
+    "usable_candidate_count": 12,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 2,
+    "family": "query13",
+    "labels": {
+      "FN": 1,
+      "TN": 1
+    },
+    "rules": {
+      "JOIN_CONDITION_PUSH": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "1 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "a239fb3cb60acc03b15b20d802f8225d12510ca4e001fcfa7c317f2b7b16dd0a"
+    ],
+    "template_fingerprints": [
+      "151d7bc7099a771b621613258429ecc9ee3d119da73e9b4dca68b0e02cdd5310",
+      "54d22329bc4158a945ab7b396270e0d685a1e031d039403109be85bf6ac386af"
+    ],
+    "usable_candidate_count": 1,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 8,
+    "family": "query14",
+    "labels": {
+      "FN": 2,
+      "TN": 6
+    },
+    "rules": {
+      "FILTER_INTO_JOIN": 8,
+      "FILTER_REDUCE_EXPRESSIONS": 2,
+      "JOIN_ADD_REDUNDANT_SEMI_JOIN": 4,
+      "JOIN_EXTRACT_FILTER": 5,
+      "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER": 1,
+      "PROJECT_JOIN_TRANSPOSE": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "8 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "de3092e0f76ceac01dc021de068817ac39a9b01b6ee9955945d6f87e18abdb95"
+    ],
+    "template_fingerprints": [
+      "6f1e55085140d7e9a77153bc9cffcd33d9b93ba8240f12e75ad087a8c3d5a3b9",
+      "beac910b9080b81dd068c8932aba5e6339f1ecc8dba4f7ffcaff21eda4948f4f"
+    ],
+    "usable_candidate_count": 8,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 10,
+    "family": "query15",
+    "labels": {
+      "FP": 1,
+      "TN": 8,
+      "TP": 1
+    },
+    "rules": {
+      "AGGREGATE_PROJECT_MERGE": 2,
+      "AGGREGATE_REDUCE_FUNCTIONS": 1,
+      "C_join": 2,
+      "FILTER_INTO_JOIN": 2,
+      "FILTER_SUB_QUERY_TO_CORRELATE": 8,
+      "SORT_PROJECT_TRANSPOSE": 5
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "10 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "cd1a1ff4c20a25688d3ebb316c5086f69cfc31b63bde193db766592df92c8edf"
+    ],
+    "template_fingerprints": [
+      "36f4c5010c2601c53bdd7c64ed30f94d0df629745f6c563281f5dc120a5b766a",
+      "986c516479b9c24dae8859b2af07275188bc1c72a71faf75e0472ca16f8f1394"
+    ],
+    "usable_candidate_count": 10,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 3,
+    "family": "query16",
+    "labels": {
+      "FN": 2,
+      "TN": 1
+    },
+    "rules": {
+      "AGGREGATE_EXPAND_DISTINCT_AGGREGATES_TO_JOIN": 1,
+      "AGGREGATE_PROJECT_MERGE": 2,
+      "FILTER_INTO_JOIN": 3
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "3 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "51c881eb0b64a87cac76a3191266b3a62e3e6c66a3fe8c633221c075da09a68b"
+    ],
+    "template_fingerprints": [
+      "7ae81dc45ead14cceab3d0514817601aa4b8ee0fad92fdf240eb7d0948121555",
+      "ef9a5fc6b95ed14ad604d50896b761d4d1c91b44a5cf0d3a43b4bdfeddb4bf0e"
+    ],
+    "usable_candidate_count": 3,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 10,
+    "family": "query17",
+    "labels": {
+      "UNVERIFIED": 10
+    },
+    "rules": {
+      "AGGREGATE_PROJECT_MERGE": 4,
+      "AGGREGATE_REDUCE_FUNCTIONS": 4,
+      "C_join": 3,
+      "FILTER_SUB_QUERY_TO_CORRELATE": 7,
+      "SORT_PROJECT_TRANSPOSE": 4
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "EQUIVALENCE_FAILED",
+    "status_evidence": [
+      "no candidate has equivalent=true"
+    ],
+    "structural_fingerprints": [
+      "92eb7708312097376d8642e070d31df7477f4ddd4720caadf1a4f8c39c914c97"
+    ],
+    "template_fingerprints": [
+      "de2ccc45ee62e438c10adb2246788143493d98691539e2f9373a708b98115ba7",
+      "e35c1a7df82738b0a1134494c159fa40d447c7aaf9cbae9db5fb8904bdc89bad"
+    ],
+    "usable_candidate_count": 0,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 8,
+    "family": "query18",
+    "labels": {
+      "FN": 2,
+      "TN": 4,
+      "TP": 2
+    },
+    "rules": {
+      "AGGREGATE_PROJECT_MERGE": 3,
+      "C_join": 1,
+      "C_pred": 1,
+      "FILTER_INTO_JOIN": 4,
+      "JOIN_PUSH_TRANSITIVE_PREDICATES": 1,
+      "PROJECT_JOIN_TRANSPOSE": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "7 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "9f7251803a8957a76799bb4c2c10b3c8326ebe6f11b9f5f43693ab5e1428a4a4"
+    ],
+    "template_fingerprints": [
+      "70f141427c476b32d51e4bcba8b69df5df0a346b2d2ebf8de6d61bce8164634f",
+      "e3b0f18c74a00af668834cfac805e9298a85587e1e4e2ab501b648c189c25125"
+    ],
+    "usable_candidate_count": 7,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 9,
+    "family": "query19",
+    "labels": {
+      "FN": 7,
+      "FP": 1,
+      "TN": 1
+    },
+    "rules": {
+      "C_join": 1,
+      "C_pred": 1,
+      "FILTER_INTO_JOIN": 5,
+      "FILTER_REDUCE_EXPRESSIONS": 1,
+      "JOIN_EXTRACT_FILTER": 2,
+      "JOIN_REDUCE_EXPRESSIONS": 1,
+      "PROJECT_FILTER_TRANSPOSE": 1,
+      "PROJECT_JOIN_TRANSPOSE": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "9 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "72fc7af135c0a519dee632b71070b450059b3d16da4f172c64c9f5c51e837582"
+    ],
+    "template_fingerprints": [
+      "3dc24980ba4890b7ec28b0a3be3636aa8154cbd887a7b2b75e7a94d0f37ab971",
+      "bdeceaf78794a24bf605b0280e17e2dca45f2cc243d79d9b1e0a0fdfe2f17e2a"
+    ],
+    "usable_candidate_count": 9,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 3,
+    "family": "query2",
+    "labels": {
+      "TP": 3
+    },
+    "rules": {
+      "FILTER_SUB_QUERY_TO_CORRELATE": 3,
+      "SORT_PROJECT_TRANSPOSE": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "3 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "380914831ca91acf5c0eb50ce94b08a423a6a7152ad88b2ec4d7c07e848153d7"
+    ],
+    "template_fingerprints": [
+      "4c446d0a07e22cd3661effceb27c949b59f08cdd8331fcbad876bf8a80a63866",
+      "fa6a4e8ce819040ce10a957703e7aad56a99c15e9e3d024a478c018a4a6cb4c8"
+    ],
+    "usable_candidate_count": 3,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 5,
+    "family": "query20",
+    "labels": {
+      "UNVERIFIED": 5
+    },
+    "rules": {
+      "FILTER_INTO_JOIN": 2,
+      "FILTER_SUB_QUERY_TO_CORRELATE": 5,
+      "PROJECT_FILTER_TRANSPOSE": 1,
+      "SORT_PROJECT_TRANSPOSE": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "EQUIVALENCE_FAILED",
+    "status_evidence": [
+      "no candidate has equivalent=true"
+    ],
+    "structural_fingerprints": [
+      "8b86f5b450c63e451afa52359a48b4887533087427899371b3c14d76d1d19049"
+    ],
+    "template_fingerprints": [
+      "9add21b245636d614387eead921772f874b10414bb918a8a7bf0377f0abba0c9",
+      "9fad64566048801900a8ab6a8319516ba25cae9daec7749850a72b642dee6640"
+    ],
+    "usable_candidate_count": 0,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 2,
+    "family": "query21",
+    "labels": {
+      "UNVERIFIED": 2
+    },
+    "rules": {
+      "AGGREGATE_PROJECT_MERGE": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "EQUIVALENCE_FAILED",
+    "status_evidence": [
+      "no candidate has equivalent=true"
+    ],
+    "structural_fingerprints": [
+      "90cd4e647e936183df327599285fd5b047a4083f9425b4a571717e93a8f82397"
+    ],
+    "template_fingerprints": [
+      "01c5080c388dd3681fb702f0e0b4ec98b649a0b1be7b5c5aa4a7d96ee79ae152",
+      "b22273c29af28c4e025bc606c21f63ae36cec33bd3bced04ae45801a9642e8ad"
+    ],
+    "usable_candidate_count": 0,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 10,
+    "family": "query22",
+    "labels": {
+      "FN": 4,
+      "FP": 1,
+      "TN": 2,
+      "TP": 3
+    },
+    "rules": {
+      "AGGREGATE_REDUCE_FUNCTIONS": 4,
+      "C_intent": 1,
+      "C_pred": 3,
+      "FILTER_SUB_QUERY_TO_CORRELATE": 4
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "10 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "7771761bc2fe896f64d2bf25fbb636919c0c24b6a543617cc1d9e416c11d5e5a"
+    ],
+    "template_fingerprints": [
+      "6e876082fb96307920c6f38ceef085f33d232bd0f38d9a0e638bde88c1150464",
+      "7dd045216a16acb8c4f5767c777b745b8ec4f97a91992db0696e40b1f49f58e0"
+    ],
+    "usable_candidate_count": 10,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 4,
+    "family": "query3",
+    "labels": {
+      "FN": 1,
+      "TN": 3
+    },
+    "rules": {
+      "C_join": 1,
+      "FILTER_INTO_JOIN": 3,
+      "SORT_PROJECT_TRANSPOSE": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "4 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "28f4a0e5ae23f333477de59ba13c8f5a4b37c91e4d0200708e3b5ce4ede302fe"
+    ],
+    "template_fingerprints": [
+      "4eae684930d30f8f1834abafcae4f9b8228dec72e05a89fb067a3d5fcc9d037e",
+      "87d329531159a9f70fb32f12e15e76b513a89c62c181574cb88eebf7638549ca"
+    ],
+    "usable_candidate_count": 4,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 2,
+    "family": "query4",
+    "labels": {
+      "TN": 2
+    },
+    "rules": {},
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "NO_REWRITE_CANDIDATE",
+    "status_evidence": [
+      "finite equivalent measured rows exist but all are unusable: {'no_applied_rule_metadata': 2}"
+    ],
+    "structural_fingerprints": [
+      "ee007c545d1f369bedcd8ff729f92110a38d1defa428c61f061090bdce169852"
+    ],
+    "template_fingerprints": [
+      "520ad275a1eefcdd1fee9c5284ea82466b31fde10592e9399904f2a2d668f012",
+      "addc8f343d7c2914e85b76bf3df29ce2da145ef4b1603417923c50b45bf02be7"
+    ],
+    "usable_candidate_count": 0,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 3,
+    "family": "query5",
+    "labels": {
+      "FN": 2,
+      "TN": 1
+    },
+    "rules": {
+      "FILTER_INTO_JOIN": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "2 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "b829601f94f61371d8557ed3509e3c1377878c8593688a148ca128a63cdfb5f7"
+    ],
+    "template_fingerprints": [
+      "87d828007c3303e6f1afd73bef50fa651e2ff6a23360a6b1e25757859b5e10b5",
+      "b35c665bd783095de3296352ddaa0173da004eed18574d18bd61399bb57a232f"
+    ],
+    "usable_candidate_count": 2,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 3,
+    "family": "query6",
+    "labels": {
+      "TN": 3
+    },
+    "rules": {
+      "FILTER_REDUCE_EXPRESSIONS": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "1 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "a4ccada16efc47057d56989ca9b2d25ee6186fdff78e1d73d5e4ff46ef4b030a"
+    ],
+    "template_fingerprints": [
+      "9069ec7604917aad61205805316b46cafd838b23afb0ed24fc3cbd2f47dde300",
+      "c002a311823d4526a25310b37cef61cf330cea1b5d9c457434254260aff60ebe"
+    ],
+    "usable_candidate_count": 1,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 5,
+    "family": "query7",
+    "labels": {
+      "FN": 1,
+      "FP": 1,
+      "TN": 3
+    },
+    "rules": {
+      "AGGREGATE_REDUCE_FUNCTIONS": 1,
+      "C_join": 1,
+      "FILTER_INTO_JOIN": 4,
+      "FILTER_REDUCE_EXPRESSIONS": 1,
+      "JOIN_EXTRACT_FILTER": 1,
+      "JOIN_TO_CORRELATE": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "5 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "6f9f6460bda3d63315e79ca9c6f7f1049ddc3233cb9cbfd74e9ef0872ce358a2"
+    ],
+    "template_fingerprints": [
+      "5f870d6d9a27eafb1ea69489a9de2e990235f5730258f65f94a25824a9b93396",
+      "6d1157b576999c6d7227525a58774643fd967758347d70ea3a4c5f2890ada2cb"
+    ],
+    "usable_candidate_count": 5,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 3,
+    "family": "query8",
+    "labels": {
+      "FN": 1,
+      "TN": 2
+    },
+    "rules": {
+      "FILTER_INTO_JOIN": 3,
+      "JOIN_EXTRACT_FILTER": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "3 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "4a0f3bafe2e0233ab7865fec1b84b3a1c4c033b9cdf14050bca88c1cd8210123"
+    ],
+    "template_fingerprints": [
+      "0a6a1fe9edc86e90c92fa9b05e6f045f6bc57e56683eadf4f98f528d8f256619",
+      "d38a351769a6058d4e91f2249aab4effb20c68ec94bcd19e21278d1627d9d58d"
+    ],
+    "usable_candidate_count": 3,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 3,
+    "family": "query9",
+    "labels": {
+      "TN": 3
+    },
+    "rules": {
+      "FILTER_INTO_JOIN": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "2 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "b0de5d4610def9292b6abae3068b8f5bf1c4f8509966da506b9bd88bfb334f4c"
+    ],
+    "template_fingerprints": [
+      "0b93e3b7cbd7fee9d4489fc139be746ac03b9783f3abe8af526f7b7948b3f1e4",
+      "6c0d85e6d40cdec1778a687cd06307a2a59467ebf83e89f7df6d5e8fc53ea358"
+    ],
+    "usable_candidate_count": 2,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 10,
+    "family": "query_scenario_a",
+    "labels": {
+      "UNVERIFIED": 10
+    },
+    "rules": {
+      "AGGREGATE_REDUCE_FUNCTIONS": 1,
+      "C_cte": 3,
+      "C_intent": 3,
+      "PROJECT_CORRELATE_TRANSPOSE": 1,
+      "PROJECT_FILTER_TRANSPOSE": 2,
+      "PROJECT_REMOVE": 2,
+      "PROJECT_SUB_QUERY_TO_CORRELATE": 4
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "EQUIVALENCE_FAILED",
+    "status_evidence": [
+      "no candidate has equivalent=true"
+    ],
+    "structural_fingerprints": [
+      "1023f3c41ca0d20162d4e4d7f47a5f9b08177641e3c5218088fec2b754af7c23",
+      "fb1ceb19c624af0c9933d9b04b339b25a52748c7918bbee6a63f5ce9a98e96cf"
+    ],
+    "template_fingerprints": [
+      "01bde4b834ff4d16ab8a7a0798832b85614bda8ae3ebc9792b38df2a56c2b934",
+      "a41939fe49ae8791a45b6e08846fa1f599a4c7f4b024e2d1f19beae9d9edbec9"
+    ],
+    "usable_candidate_count": 0,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 4,
+    "family": "query_scenario_b",
+    "labels": {
+      "FN": 3,
+      "TN": 1
+    },
+    "rules": {
+      "AGGREGATE_PROJECT_MERGE": 2,
+      "FILTER_INTO_JOIN": 4,
+      "JOIN_EXTRACT_FILTER": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "4 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "07734252e1d86151c3dfafddbda391007d8e0e975a12a59e1768f9587fdc68a0",
+      "2157e0ce237c8eec652804b28b44779ec0da18af449e270703c1ab5c6f16036b"
+    ],
+    "template_fingerprints": [
+      "02ddb5f8d6d5b2fe8d0e4f2c8d4548c0c275025889f4bfbba60294d6ddd9933d",
+      "155fa1070461d44028199301153d9ed2365d645599aba18d0e1734573f454122"
+    ],
+    "usable_candidate_count": 4,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 5,
+    "family": "query_scenario_c",
+    "labels": {
+      "TP": 4,
+      "UNVERIFIED": 1
+    },
+    "rules": {
+      "C_cte": 3,
+      "FILTER_SUB_QUERY_TO_CORRELATE": 1,
+      "PROJECT_SUB_QUERY_TO_CORRELATE": 1,
+      "SORT_PROJECT_TRANSPOSE": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "4 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "a8b7979389d30135dc5fa43c8007b541471fbfb8eac061e63771b84924106a93",
+      "d8b69efb60c2d3ed5374c0d2f155a70cf65970adb42659346afabdd3b705357a"
+    ],
+    "template_fingerprints": [
+      "0e7b1c4c606a82609b6ccd40dc777ae6bb873c2264a1e79890b188e09c118c6d",
+      "abafa5594bf891ab3d673b1e678133501b78e39c076e9337dcaf5c7eeb8327b9"
+    ],
+    "usable_candidate_count": 4,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 8,
+    "family": "query_scenario_d",
+    "labels": {
+      "UNVERIFIED": 8
+    },
+    "rules": {
+      "C_pred": 2,
+      "FILTER_INTO_JOIN": 6,
+      "JOIN_EXTRACT_FILTER": 3,
+      "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER": 1,
+      "JOIN_PUSH_TRANSITIVE_PREDICATES": 1,
+      "PROJECT_JOIN_TRANSPOSE": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "EQUIVALENCE_FAILED",
+    "status_evidence": [
+      "no candidate has equivalent=true"
+    ],
+    "structural_fingerprints": [
+      "2dc1114feb0e81a0b485ed4a619d396fdfdd1bc4d46a47ac0eabff1178c8c276",
+      "bfaefc3bd9a02e71d0a8af2594efb3a6da558ede93c05ff67d92b9875bd922d1"
+    ],
+    "template_fingerprints": [
+      "2b626bc0405f9bb4825ed7538b4d3b7c163f230d15c8b373b5dd0995ca932dd6",
+      "9aa83377e2fa2ff967224580cfb774d01cfab45e31a38c446a306f5cf9310e36"
+    ],
+    "usable_candidate_count": 0,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 2,
+    "family": "query_scenario_e",
+    "labels": {
+      "UNVERIFIED": 2
+    },
+    "rules": {
+      "FILTER_INTO_JOIN": 2,
+      "JOIN_EXTRACT_FILTER": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "EQUIVALENCE_FAILED",
+    "status_evidence": [
+      "no candidate has equivalent=true"
+    ],
+    "structural_fingerprints": [
+      "9e0f566e9d0e9d3f55b9dfcd67e5432c6f39d00e4f5c9bd8f916ab1bb75413ea",
+      "bfaefc3bd9a02e71d0a8af2594efb3a6da558ede93c05ff67d92b9875bd922d1"
+    ],
+    "template_fingerprints": [
+      "634c9c8c2cfd13d81b83aa21562da606414ece64f2c5a8df8b4d59de7ac5a75a",
+      "63d465135db7a71059f83f153ba522895ca3ca252356d09bf27d6c699594918d"
+    ],
+    "usable_candidate_count": 0,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 5,
+    "family": "query_scenario_f",
+    "labels": {
+      "FN": 1,
+      "UNVERIFIED": 4
+    },
+    "rules": {
+      "AGGREGATE_PROJECT_MERGE": 1,
+      "C_cte": 3,
+      "PROJECT_SUB_QUERY_TO_CORRELATE": 1
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "1 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "6077e146960044fe04b078dc7d4c06c09e01070253ada9706c1fd1d50b5c7f09",
+      "a3a469ae8882541dbf46cb8045f9ee639b45aa1eab20a3a6b52e14d008d2f118"
+    ],
+    "template_fingerprints": [
+      "17281d7e88f546a427f1c346285257b0af9426280cbefde7c9bf8cdeef0715fc",
+      "65525739a44c67e598ab15614a52d8f60d85630e0784ff2e63927f45350b76eb"
+    ],
+    "usable_candidate_count": 1,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 6,
+    "family": "query_scenario_g",
+    "labels": {
+      "FN": 4,
+      "TN": 2
+    },
+    "rules": {
+      "FILTER_INTO_JOIN": 1,
+      "FILTER_PROJECT_TRANSPOSE": 2,
+      "JOIN_EXTRACT_FILTER": 2,
+      "JOIN_TO_CORRELATE": 3,
+      "PROJECT_FILTER_TRANSPOSE": 1,
+      "PROJECT_JOIN_TRANSPOSE": 1,
+      "PROJECT_REMOVE": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "5 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "5136dfa60a3a291e43b688f9948b3dddd916b936f5a47a5be326e85a8f707908",
+      "91139c8fe8f951b8d928570f7b829efb7b53630875cd3f9aecebb7bd6f39cd57"
+    ],
+    "template_fingerprints": [
+      "1207b2620da775a665f22e23c8c15e9497142bf8ef9cb7dbc8fcd1da89f190d0",
+      "f8b9f87340e1a5c4f3b95f986c07013dcf57d245e36af73cd6eca94e0e95cf19"
+    ],
+    "usable_candidate_count": 5,
+    "workload": "tpch"
+  },
+  {
+    "dataset_candidate_count": 6,
+    "family": "query_scenario_h",
+    "labels": {
+      "FN": 4,
+      "TN": 2
+    },
+    "rules": {
+      "AGGREGATE_PROJECT_MERGE": 2,
+      "C_join": 1,
+      "FILTER_INTO_JOIN": 3,
+      "JOIN_EXTRACT_FILTER": 3,
+      "PROJECT_JOIN_TRANSPOSE": 1,
+      "SORT_PROJECT_TRANSPOSE": 2
+    },
+    "source_parse_ok": true,
+    "source_sql_count": 2,
+    "status": "COMPLETE",
+    "status_evidence": [
+      "4 usable candidate(s)"
+    ],
+    "structural_fingerprints": [
+      "15b24459ce2d3c1b9de0d2a142d6061c8ce0fd012ba9b57fdb80b9985ea3f8d5",
+      "24205da2780c7f4b2885e36642fc869f1de9004a2107dabe3cc8aae6ed442016"
+    ],
+    "template_fingerprints": [
+      "014d5df7a509a948e82c67e97bac8f702d40cbb85015f8c7837ca336ab7cfb18",
+      "3e6878654b65f014ef1743d8b9fc9203fd57579be51c43f78bd52855927a0203"
+    ],
+    "usable_candidate_count": 4,
+    "workload": "tpch"
+  }
+]

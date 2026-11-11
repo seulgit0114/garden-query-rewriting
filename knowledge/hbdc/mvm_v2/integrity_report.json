@@ -1,0 +1,9 @@
+{
+  "valid": true,
+  "errors": [],
+  "candidate_count": 638,
+  "usable_count": 494,
+  "source_count": 53,
+  "v1_sha256": "25a20fbcaf39ad0156a80b623838db74156341ac3c80980965e24a7ac4dfcedf",
+  "v2_sha256": "4db5e9a23efe584e1b83eae04192167b22e8ae5960fcc19ad03c9a6433f2f3e5"
+}

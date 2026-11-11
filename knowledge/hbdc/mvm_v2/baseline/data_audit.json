@@ -1,0 +1,31 @@
+{
+  "candidate_count": 638,
+  "candidates_byte_identical_to_v1": true,
+  "coverage": {
+    "imdb": {
+      "complete_families": 32,
+      "incomplete_families": 1,
+      "source_families": 33,
+      "status_counts": {
+        "COMPLETE": 32,
+        "NO_REWRITE_CANDIDATE": 1
+      }
+    },
+    "tpch": {
+      "complete_families": 18,
+      "incomplete_families": 12,
+      "source_families": 30,
+      "status_counts": {
+        "COMPLETE": 18,
+        "EQUIVALENCE_FAILED": 11,
+        "NO_REWRITE_CANDIDATE": 1
+      }
+    }
+  },
+  "created_at": "2026-09-07T04:29:53.443117+00:00",
+  "parse_failures": [],
+  "split_byte_identical_to_v1": true,
+  "usable_candidate_count": 453,
+  "v1_candidates_sha256": "25a20fbcaf39ad0156a80b623838db74156341ac3c80980965e24a7ac4dfcedf",
+  "v2_initial_candidates_sha256": "25a20fbcaf39ad0156a80b623838db74156341ac3c80980965e24a7ac4dfcedf"
+}

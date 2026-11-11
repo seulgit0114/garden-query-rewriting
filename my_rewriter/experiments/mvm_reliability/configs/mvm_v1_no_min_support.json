@@ -1,0 +1,16 @@
+{
+  "dataset": {
+    "candidates_path": "query_sets/mvm_v1/candidates.jsonl",
+    "split_path": "query_sets/mvm_v1/split.json"
+  },
+  "cost_policy": {
+    "strict": true
+  },
+  "mvm_policy": {
+    "alpha": 1.0,
+    "beta": 1.0,
+    "min_support": 0,
+    "fp_guard_threshold": 0.4,
+    "fn_recovery_threshold": 0.6
+  }
+}

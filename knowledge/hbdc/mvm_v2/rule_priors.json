@@ -1,0 +1,2267 @@
+{
+  "policy": {
+    "source": "mvm_v2 train split only",
+    "success": "rewritten_latency_ms < original_latency_ms",
+    "smoothing": "Laplace/Beta(1,1)",
+    "smaller_scale_verified_rows": "eligible with explicit equivalence_scope"
+  },
+  "train_candidate_count": 381,
+  "rules": {
+    "AGGREGATE_EXPAND_DISTINCT_AGGREGATES": {
+      "count": 5,
+      "positive": 5,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.8571428571428571,
+      "mean_latency_improvement_pct": 72.71505477497615,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 4,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_EXPAND_DISTINCT_AGGREGATES_TO_JOIN": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -13.556875349542208,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_JOIN_TRANSPOSE_EXTENDED": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 92.91085554034541,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_MERGE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 76.9753005635596,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE": {
+      "count": 65,
+      "positive": 34,
+      "negative": 31,
+      "success_rate": 0.5230769230769231,
+      "laplace_success_rate": 0.5223880597014925,
+      "mean_latency_improvement_pct": -117.4391556545572,
+      "labels": {
+        "TP": 7,
+        "FP": 4,
+        "FN": 27,
+        "TN": 27
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS": {
+      "count": 31,
+      "positive": 7,
+      "negative": 24,
+      "success_rate": 0.22580645161290322,
+      "laplace_success_rate": 0.24242424242424243,
+      "mean_latency_improvement_pct": -329.37832843872417,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 7,
+        "TN": 23
+      }
+    },
+    "AGGREGATE_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -16.287263763659087,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_UNION_TRANSPOSE": {
+      "count": 4,
+      "positive": 2,
+      "negative": 2,
+      "success_rate": 0.5,
+      "laplace_success_rate": 0.5,
+      "mean_latency_improvement_pct": -47.94567399649001,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 2,
+        "TN": 2
+      }
+    },
+    "C_cte": {
+      "count": 9,
+      "positive": 7,
+      "negative": 2,
+      "success_rate": 0.7777777777777778,
+      "laplace_success_rate": 0.7272727272727273,
+      "mean_latency_improvement_pct": 43.98539638153032,
+      "labels": {
+        "TP": 6,
+        "FP": 1,
+        "FN": 1,
+        "TN": 1
+      }
+    },
+    "C_intent": {
+      "count": 4,
+      "positive": 4,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.8333333333333334,
+      "mean_latency_improvement_pct": 45.46642141433219,
+      "labels": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 2,
+        "TN": 0
+      }
+    },
+    "C_join": {
+      "count": 83,
+      "positive": 43,
+      "negative": 40,
+      "success_rate": 0.5180722891566265,
+      "laplace_success_rate": 0.5176470588235295,
+      "mean_latency_improvement_pct": -0.361702362431551,
+      "labels": {
+        "TP": 33,
+        "FP": 28,
+        "FN": 10,
+        "TN": 12
+      }
+    },
+    "C_pred": {
+      "count": 10,
+      "positive": 6,
+      "negative": 4,
+      "success_rate": 0.6,
+      "laplace_success_rate": 0.5833333333333334,
+      "mean_latency_improvement_pct": -8.20283245941751,
+      "labels": {
+        "TP": 5,
+        "FP": 4,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_AGGREGATE_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 96.85165721630506,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN": {
+      "count": 186,
+      "positive": 85,
+      "negative": 101,
+      "success_rate": 0.45698924731182794,
+      "laplace_success_rate": 0.4574468085106383,
+      "mean_latency_improvement_pct": -74.8191328715298,
+      "labels": {
+        "TP": 8,
+        "FP": 19,
+        "FN": 77,
+        "TN": 82
+      }
+    },
+    "FILTER_PROJECT_TRANSPOSE": {
+      "count": 2,
+      "positive": 1,
+      "negative": 1,
+      "success_rate": 0.5,
+      "laplace_success_rate": 0.5,
+      "mean_latency_improvement_pct": -2.4512785325329616,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 1
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS": {
+      "count": 38,
+      "positive": 21,
+      "negative": 17,
+      "success_rate": 0.5526315789473685,
+      "laplace_success_rate": 0.55,
+      "mean_latency_improvement_pct": 3.7571297233663,
+      "labels": {
+        "TP": 9,
+        "FP": 4,
+        "FN": 12,
+        "TN": 13
+      }
+    },
+    "FILTER_SET_OP_TRANSPOSE": {
+      "count": 3,
+      "positive": 1,
+      "negative": 2,
+      "success_rate": 0.3333333333333333,
+      "laplace_success_rate": 0.4,
+      "mean_latency_improvement_pct": 7.320781461389266,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 2
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE": {
+      "count": 48,
+      "positive": 11,
+      "negative": 37,
+      "success_rate": 0.22916666666666666,
+      "laplace_success_rate": 0.24,
+      "mean_latency_improvement_pct": -409.17900297680245,
+      "labels": {
+        "TP": 5,
+        "FP": 1,
+        "FN": 6,
+        "TN": 36
+      }
+    },
+    "FILTER_VALUES_MERGE": {
+      "count": 4,
+      "positive": 4,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.8333333333333334,
+      "mean_latency_improvement_pct": 62.95681063122924,
+      "labels": {
+        "TP": 4,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "INTERSECT_TO_DISTINCT": {
+      "count": 5,
+      "positive": 1,
+      "negative": 4,
+      "success_rate": 0.2,
+      "laplace_success_rate": 0.2857142857142857,
+      "mean_latency_improvement_pct": -13.550198571915079,
+      "labels": {
+        "TP": 0,
+        "FP": 4,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "JOIN_ADD_REDUNDANT_SEMI_JOIN": {
+      "count": 4,
+      "positive": 0,
+      "negative": 4,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.16666666666666666,
+      "mean_latency_improvement_pct": -14.18449794225947,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4
+      }
+    },
+    "JOIN_CONDITION_PUSH": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 3.27485239891384,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "JOIN_EXTRACT_FILTER": {
+      "count": 33,
+      "positive": 21,
+      "negative": 12,
+      "success_rate": 0.6363636363636364,
+      "laplace_success_rate": 0.6285714285714286,
+      "mean_latency_improvement_pct": 9.013380965701675,
+      "labels": {
+        "TP": 2,
+        "FP": 2,
+        "FN": 19,
+        "TN": 10
+      }
+    },
+    "JOIN_LEFT_UNION_TRANSPOSE": {
+      "count": 2,
+      "positive": 2,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.75,
+      "mean_latency_improvement_pct": 98.48973114827592,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 2,
+        "TN": 0
+      }
+    },
+    "JOIN_PROJECT_BOTH_TRANSPOSE_INCLUDE_OUTER": {
+      "count": 3,
+      "positive": 1,
+      "negative": 2,
+      "success_rate": 0.3333333333333333,
+      "laplace_success_rate": 0.4,
+      "mean_latency_improvement_pct": -486.4862953364154,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 2
+      }
+    },
+    "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER": {
+      "count": 5,
+      "positive": 3,
+      "negative": 2,
+      "success_rate": 0.6,
+      "laplace_success_rate": 0.5714285714285714,
+      "mean_latency_improvement_pct": -438.8519200588049,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 3,
+        "TN": 2
+      }
+    },
+    "JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER": {
+      "count": 4,
+      "positive": 2,
+      "negative": 2,
+      "success_rate": 0.5,
+      "laplace_success_rate": 0.5,
+      "mean_latency_improvement_pct": -572.4173269759573,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 2,
+        "TN": 2
+      }
+    },
+    "JOIN_PUSH_TRANSITIVE_PREDICATES": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -36.882040825302745,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "JOIN_REDUCE_EXPRESSIONS": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 5.095324765731201,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "JOIN_TO_CORRELATE": {
+      "count": 16,
+      "positive": 3,
+      "negative": 13,
+      "success_rate": 0.1875,
+      "laplace_success_rate": 0.2222222222222222,
+      "mean_latency_improvement_pct": -8805.207336682639,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 3,
+        "TN": 13
+      }
+    },
+    "PROJECT_AGGREGATE_MERGE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 0.8684661924969084,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "PROJECT_FILTER_TRANSPOSE": {
+      "count": 15,
+      "positive": 5,
+      "negative": 10,
+      "success_rate": 0.3333333333333333,
+      "laplace_success_rate": 0.35294117647058826,
+      "mean_latency_improvement_pct": -5404.254598063938,
+      "labels": {
+        "TP": 0,
+        "FP": 2,
+        "FN": 5,
+        "TN": 8
+      }
+    },
+    "PROJECT_JOIN_REMOVE": {
+      "count": 4,
+      "positive": 3,
+      "negative": 1,
+      "success_rate": 0.75,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": -0.26075818704176856,
+      "labels": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 1,
+        "TN": 1
+      }
+    },
+    "PROJECT_JOIN_TRANSPOSE": {
+      "count": 13,
+      "positive": 9,
+      "negative": 4,
+      "success_rate": 0.6923076923076923,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": -2.757602062181919,
+      "labels": {
+        "TP": 1,
+        "FP": 2,
+        "FN": 8,
+        "TN": 2
+      }
+    },
+    "PROJECT_REDUCE_EXPRESSIONS": {
+      "count": 9,
+      "positive": 2,
+      "negative": 7,
+      "success_rate": 0.2222222222222222,
+      "laplace_success_rate": 0.2727272727272727,
+      "mean_latency_improvement_pct": -64.27549192037365,
+      "labels": {
+        "TP": 0,
+        "FP": 2,
+        "FN": 2,
+        "TN": 5
+      }
+    },
+    "PROJECT_REMOVE": {
+      "count": 18,
+      "positive": 8,
+      "negative": 10,
+      "success_rate": 0.4444444444444444,
+      "laplace_success_rate": 0.45,
+      "mean_latency_improvement_pct": -303.85650218965446,
+      "labels": {
+        "TP": 5,
+        "FP": 2,
+        "FN": 3,
+        "TN": 8
+      }
+    },
+    "PROJECT_SUB_QUERY_TO_CORRELATE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 83.29841869784538,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW": {
+      "count": 2,
+      "positive": 1,
+      "negative": 1,
+      "success_rate": 0.5,
+      "laplace_success_rate": 0.5,
+      "mean_latency_improvement_pct": -0.5709185857296222,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 1
+      }
+    },
+    "SORT_PROJECT_TRANSPOSE": {
+      "count": 43,
+      "positive": 15,
+      "negative": 28,
+      "success_rate": 0.3488372093023256,
+      "laplace_success_rate": 0.35555555555555557,
+      "mean_latency_improvement_pct": -188.5990481943867,
+      "labels": {
+        "TP": 4,
+        "FP": 2,
+        "FN": 11,
+        "TN": 26
+      }
+    },
+    "UNION_TO_DISTINCT": {
+      "count": 4,
+      "positive": 2,
+      "negative": 2,
+      "success_rate": 0.5,
+      "laplace_success_rate": 0.5,
+      "mean_latency_improvement_pct": -24.50351783062478,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 2,
+        "TN": 2
+      }
+    }
+  },
+  "rule_sequences": {
+    "AGGREGATE_EXPAND_DISTINCT_AGGREGATES": {
+      "count": 4,
+      "positive": 4,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.8333333333333334,
+      "mean_latency_improvement_pct": 69.06070139938994,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 4,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_EXPAND_DISTINCT_AGGREGATES > AGGREGATE_PROJECT_MERGE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 87.33246827732101,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE": {
+      "count": 6,
+      "positive": 5,
+      "negative": 1,
+      "success_rate": 0.8333333333333334,
+      "laplace_success_rate": 0.75,
+      "mean_latency_improvement_pct": 4.403324307993217,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 5,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > AGGREGATE_JOIN_TRANSPOSE_EXTENDED": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 92.91085554034541,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > AGGREGATE_MERGE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 76.9753005635596,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > AGGREGATE_REDUCE_FUNCTIONS > FILTER_INTO_JOIN": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 75.46306612749243,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > AGGREGATE_REDUCE_FUNCTIONS > FILTER_INTO_JOIN > FILTER_REDUCE_EXPRESSIONS > PROJECT_REDUCE_EXPRESSIONS > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -73.76131474220901,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > AGGREGATE_REDUCE_FUNCTIONS > FILTER_INTO_JOIN > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -9.768501547309237,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > AGGREGATE_REDUCE_FUNCTIONS > FILTER_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -3.9892669256739954,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > FILTER_INTO_JOIN": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -2.78414499890975,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > FILTER_INTO_JOIN > AGGREGATE_REDUCE_FUNCTIONS": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 49.6992388259524,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > FILTER_INTO_JOIN > FILTER_REDUCE_EXPRESSIONS > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 16.157022189648355,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > FILTER_INTO_JOIN > PROJECT_JOIN_TRANSPOSE > JOIN_EXTRACT_FILTER > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 4.120802201521304,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > FILTER_INTO_JOIN > PROJECT_REDUCE_EXPRESSIONS": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -178.04841286671407,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -0.8416954633693432,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -28.566546072450592,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > AGGREGATE_PROJECT_MERGE > FILTER_INTO_JOIN > PROJECT_REDUCE_EXPRESSIONS > FILTER_REDUCE_EXPRESSIONS > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -84.951205572277,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > AGGREGATE_PROJECT_MERGE > FILTER_INTO_JOIN > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -3.1839528206734995,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > FILTER_INTO_JOIN > FILTER_SUB_QUERY_TO_CORRELATE > JOIN_TO_CORRELATE > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -2136.932622545507,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > FILTER_INTO_JOIN > JOIN_PROJECT_BOTH_TRANSPOSE_INCLUDE_OUTER > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -148.54153655292615,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > FILTER_INTO_JOIN > JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER > JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER > SORT_PROJECT_TRANSPOSE > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -148.0492734897001,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > FILTER_INTO_JOIN > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 11.156303692493776,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -26.892484835547066,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > FILTER_SUB_QUERY_TO_CORRELATE > FILTER_INTO_JOIN > JOIN_TO_CORRELATE > JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER > JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -2145.6025488087953,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > FILTER_SUB_QUERY_TO_CORRELATE > JOIN_PROJECT_BOTH_TRANSPOSE_INCLUDE_OUTER > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -1323.0751284210664,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > FILTER_SUB_QUERY_TO_CORRELATE > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -91.12705264412702,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > FILTER_SUB_QUERY_TO_CORRELATE > SORT_PROJECT_TRANSPOSE > AGGREGATE_PROJECT_MERGE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -38.84251572287111,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "AGGREGATE_REDUCE_FUNCTIONS > JOIN_PROJECT_BOTH_TRANSPOSE_INCLUDE_OUTER > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 12.157778964746406,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "AGGREGATE_UNION_TRANSPOSE > FILTER_INTO_JOIN > FILTER_SUB_QUERY_TO_CORRELATE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -100.26996111471436,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "C_cte": {
+      "count": 9,
+      "positive": 7,
+      "negative": 2,
+      "success_rate": 0.7777777777777778,
+      "laplace_success_rate": 0.7272727272727273,
+      "mean_latency_improvement_pct": 43.98539638153032,
+      "labels": {
+        "TP": 6,
+        "FP": 1,
+        "FN": 1,
+        "TN": 1
+      }
+    },
+    "C_intent": {
+      "count": 4,
+      "positive": 4,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.8333333333333334,
+      "mean_latency_improvement_pct": 45.46642141433219,
+      "labels": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 2,
+        "TN": 0
+      }
+    },
+    "C_join": {
+      "count": 83,
+      "positive": 43,
+      "negative": 40,
+      "success_rate": 0.5180722891566265,
+      "laplace_success_rate": 0.5176470588235295,
+      "mean_latency_improvement_pct": -0.361702362431551,
+      "labels": {
+        "TP": 33,
+        "FP": 28,
+        "FN": 10,
+        "TN": 12
+      }
+    },
+    "C_pred": {
+      "count": 10,
+      "positive": 6,
+      "negative": 4,
+      "success_rate": 0.6,
+      "laplace_success_rate": 0.5833333333333334,
+      "mean_latency_improvement_pct": -8.20283245941751,
+      "labels": {
+        "TP": 5,
+        "FP": 4,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_AGGREGATE_TRANSPOSE > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 96.85165721630506,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN": {
+      "count": 69,
+      "positive": 31,
+      "negative": 38,
+      "success_rate": 0.4492753623188406,
+      "laplace_success_rate": 0.4507042253521127,
+      "mean_latency_improvement_pct": -35.6714349779787,
+      "labels": {
+        "TP": 4,
+        "FP": 6,
+        "FN": 27,
+        "TN": 32
+      }
+    },
+    "FILTER_INTO_JOIN > AGGREGATE_EXPAND_DISTINCT_AGGREGATES_TO_JOIN": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -13.556875349542208,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > AGGREGATE_PROJECT_MERGE": {
+      "count": 13,
+      "positive": 10,
+      "negative": 3,
+      "success_rate": 0.7692307692307693,
+      "laplace_success_rate": 0.7333333333333333,
+      "mean_latency_improvement_pct": 6.98885217138907,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 10,
+        "TN": 2
+      }
+    },
+    "FILTER_INTO_JOIN > AGGREGATE_PROJECT_MERGE > JOIN_EXTRACT_FILTER": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 3.746818658245315,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE": {
+      "count": 3,
+      "positive": 2,
+      "negative": 1,
+      "success_rate": 0.6666666666666666,
+      "laplace_success_rate": 0.6,
+      "mean_latency_improvement_pct": -20.748578186233228,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 2,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE > JOIN_EXTRACT_FILTER": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 0.07871767242672556,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > AGGREGATE_REDUCE_FUNCTIONS": {
+      "count": 3,
+      "positive": 2,
+      "negative": 1,
+      "success_rate": 0.6666666666666666,
+      "laplace_success_rate": 0.6,
+      "mean_latency_improvement_pct": 0.06686546248547888,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 2,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > AGGREGATE_REDUCE_FUNCTIONS > FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -53.552756113790714,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > AGGREGATE_REDUCE_FUNCTIONS > FILTER_SUB_QUERY_TO_CORRELATE > PROJECT_FILTER_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -1867.8378333703145,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > FILTER_REDUCE_EXPRESSIONS": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 28.033382316963507,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > FILTER_REDUCE_EXPRESSIONS > AGGREGATE_REDUCE_FUNCTIONS": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -0.6385540791626114,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > FILTER_REDUCE_EXPRESSIONS > AGGREGATE_REDUCE_FUNCTIONS > AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 0.4771046108214192,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > FILTER_REDUCE_EXPRESSIONS > JOIN_EXTRACT_FILTER": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 41.599788409480006,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > FILTER_REDUCE_EXPRESSIONS > PROJECT_REDUCE_EXPRESSIONS": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -0.003607443543509995,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > FILTER_REDUCE_EXPRESSIONS > PROJECT_REDUCE_EXPRESSIONS > AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 95.17645155555556,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > FILTER_SUB_QUERY_TO_CORRELATE": {
+      "count": 7,
+      "positive": 1,
+      "negative": 6,
+      "success_rate": 0.14285714285714285,
+      "laplace_success_rate": 0.2222222222222222,
+      "mean_latency_improvement_pct": -325.0940890553874,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 6
+      }
+    },
+    "FILTER_INTO_JOIN > FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_REDUCE_FUNCTIONS > PROJECT_FILTER_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -1863.909797012029,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_UNION_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 5.470792490287105,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > INTERSECT_TO_DISTINCT": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -17.861179357544803,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > JOIN_ADD_REDUNDANT_SEMI_JOIN > JOIN_EXTRACT_FILTER": {
+      "count": 2,
+      "positive": 0,
+      "negative": 2,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.25,
+      "mean_latency_improvement_pct": -13.77570819625586,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2
+      }
+    },
+    "FILTER_INTO_JOIN > JOIN_EXTRACT_FILTER": {
+      "count": 9,
+      "positive": 5,
+      "negative": 4,
+      "success_rate": 0.5555555555555556,
+      "laplace_success_rate": 0.5454545454545454,
+      "mean_latency_improvement_pct": 0.7305193146332779,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 5,
+        "TN": 3
+      }
+    },
+    "FILTER_INTO_JOIN > JOIN_EXTRACT_FILTER > AGGREGATE_PROJECT_MERGE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -0.28297726539308626,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > JOIN_EXTRACT_FILTER > PROJECT_JOIN_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -0.7073539157754056,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > JOIN_PUSH_TRANSITIVE_PREDICATES > PROJECT_JOIN_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -36.882040825302745,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > JOIN_REDUCE_EXPRESSIONS > PROJECT_JOIN_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 5.095324765731201,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_JOIN_REMOVE > JOIN_EXTRACT_FILTER": {
+      "count": 2,
+      "positive": 1,
+      "negative": 1,
+      "success_rate": 0.5,
+      "laplace_success_rate": 0.5,
+      "mean_latency_improvement_pct": -0.9063199388141668,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_JOIN_REMOVE > JOIN_EXTRACT_FILTER > PROJECT_JOIN_TRANSPOSE": {
+      "count": 2,
+      "positive": 2,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.75,
+      "mean_latency_improvement_pct": 0.3848035647306297,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_JOIN_TRANSPOSE > JOIN_ADD_REDUNDANT_SEMI_JOIN > JOIN_EXTRACT_FILTER": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -16.382704592231427,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_JOIN_TRANSPOSE > JOIN_EXTRACT_FILTER": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 4.845154422299953,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_JOIN_TRANSPOSE > JOIN_EXTRACT_FILTER > JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 0.2735881843916336,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_JOIN_TRANSPOSE > JOIN_EXTRACT_FILTER > JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 3.1420144324386308,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_JOIN_TRANSPOSE > JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER > JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 0.8404999622274758,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_JOIN_TRANSPOSE > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -2.126449867840743,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_REDUCE_EXPRESSIONS": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -179.5120740584288,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_REDUCE_EXPRESSIONS > AGGREGATE_PROJECT_MERGE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -97.92706859358158,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -1.0251789905189526,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_INTO_JOIN > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -2.4449502622458446,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_INTO_JOIN > UNION_TO_DISTINCT": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 33.30739706319107,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_PROJECT_TRANSPOSE > JOIN_TO_CORRELATE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -6.065288359779838,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_PROJECT_TRANSPOSE > JOIN_TO_CORRELATE > PROJECT_JOIN_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 1.1627312947139146,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS": {
+      "count": 6,
+      "positive": 5,
+      "negative": 1,
+      "success_rate": 0.8333333333333334,
+      "laplace_success_rate": 0.75,
+      "mean_latency_improvement_pct": 40.83648187022812,
+      "labels": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 2,
+        "TN": 1
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS > AGGREGATE_PROJECT_MERGE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 1.3184432526774892,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN": {
+      "count": 7,
+      "positive": 2,
+      "negative": 5,
+      "success_rate": 0.2857142857142857,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -49.037753448351985,
+      "labels": {
+        "TP": 0,
+        "FP": 2,
+        "FN": 2,
+        "TN": 3
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN > AGGREGATE_PROJECT_MERGE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 2.0730454548766084,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN > AGGREGATE_REDUCE_FUNCTIONS > SORT_PROJECT_TRANSPOSE": {
+      "count": 2,
+      "positive": 0,
+      "negative": 2,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.25,
+      "mean_latency_improvement_pct": -93.15232677262371,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN > INTERSECT_TO_DISTINCT": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 0.11003344584173823,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN > JOIN_ADD_REDUNDANT_SEMI_JOIN > JOIN_EXTRACT_FILTER": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -12.803870784294736,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN > JOIN_EXTRACT_FILTER": {
+      "count": 2,
+      "positive": 2,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.75,
+      "mean_latency_improvement_pct": 68.03423778993087,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 2,
+        "TN": 0
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN > UNION_TO_DISTINCT > JOIN_EXTRACT_FILTER": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 31.20499930149501,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS > PROJECT_FILTER_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -0.005629711364693211,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_REDUCE_EXPRESSIONS > PROJECT_REMOVE": {
+      "count": 3,
+      "positive": 3,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.8,
+      "mean_latency_improvement_pct": 93.333328219802,
+      "labels": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_SET_OP_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -49.999999999999986,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_SET_OP_TRANSPOSE > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -26.315789473684216,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE": {
+      "count": 3,
+      "positive": 1,
+      "negative": 2,
+      "success_rate": 0.3333333333333333,
+      "laplace_success_rate": 0.4,
+      "mean_latency_improvement_pct": -9.377296473762444,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_PROJECT_MERGE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -93.66596461399249,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_PROJECT_MERGE > AGGREGATE_REDUCE_FUNCTIONS": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -49.38267163294676,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_PROJECT_MERGE > AGGREGATE_REDUCE_FUNCTIONS > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -24.286528034540886,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE": {
+      "count": 7,
+      "positive": 1,
+      "negative": 6,
+      "success_rate": 0.14285714285714285,
+      "laplace_success_rate": 0.2222222222222222,
+      "mean_latency_improvement_pct": -1076.0916532174358,
+      "labels": {
+        "TP": 1,
+        "FP": 1,
+        "FN": 0,
+        "TN": 5
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_REDUCE_FUNCTIONS > AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -28.587531092355256,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_REDUCE_FUNCTIONS > SORT_PROJECT_TRANSPOSE > AGGREGATE_PROJECT_MERGE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -50.664540700342364,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_UNION_TRANSPOSE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 6.9087087026963365,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > AGGREGATE_UNION_TRANSPOSE > FILTER_INTO_JOIN": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -103.89223606422912,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > FILTER_INTO_JOIN": {
+      "count": 4,
+      "positive": 1,
+      "negative": 3,
+      "success_rate": 0.25,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -4.698628494388392,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 3
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > FILTER_INTO_JOIN > AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE": {
+      "count": 2,
+      "positive": 2,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.75,
+      "mean_latency_improvement_pct": 99.54663220714124,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 2,
+        "TN": 0
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > FILTER_INTO_JOIN > FILTER_REDUCE_EXPRESSIONS > AGGREGATE_PROJECT_MERGE > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -11.443820463759614,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > FILTER_INTO_JOIN > SORT_PROJECT_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -97.2482985931422,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "FILTER_SUB_QUERY_TO_CORRELATE > SORT_PROJECT_TRANSPOSE": {
+      "count": 5,
+      "positive": 3,
+      "negative": 2,
+      "success_rate": 0.6,
+      "laplace_success_rate": 0.5714285714285714,
+      "mean_latency_improvement_pct": 22.07519651977784,
+      "labels": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2
+      }
+    },
+    "FILTER_VALUES_MERGE": {
+      "count": 3,
+      "positive": 3,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.8,
+      "mean_latency_improvement_pct": 55.370985603543744,
+      "labels": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "FILTER_VALUES_MERGE > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 85.71428571428571,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "INTERSECT_TO_DISTINCT": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -16.41208808013303,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "INTERSECT_TO_DISTINCT > AGGREGATE_REMOVE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -16.287263763659087,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "INTERSECT_TO_DISTINCT > FILTER_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -17.30049510408021,
+      "labels": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "JOIN_CONDITION_PUSH": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 3.27485239891384,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "JOIN_EXTRACT_FILTER > PROJECT_FILTER_TRANSPOSE > JOIN_TO_CORRELATE > PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 0.7694115206776968,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "JOIN_LEFT_UNION_TRANSPOSE > FILTER_INTO_JOIN > JOIN_EXTRACT_FILTER": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 98.70132843869985,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "JOIN_LEFT_UNION_TRANSPOSE > FILTER_INTO_JOIN > JOIN_EXTRACT_FILTER > FILTER_SET_OP_TRANSPOSE > JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 98.278133857852,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "JOIN_TO_CORRELATE": {
+      "count": 8,
+      "positive": 1,
+      "negative": 7,
+      "success_rate": 0.125,
+      "laplace_success_rate": 0.2,
+      "mean_latency_improvement_pct": -7420.159280104607,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 7
+      }
+    },
+    "JOIN_TO_CORRELATE > PROJECT_FILTER_TRANSPOSE": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -868.4194620439238,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "PROJECT_AGGREGATE_MERGE > AGGREGATE_PROJECT_MERGE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 0.8684661924969084,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "PROJECT_FILTER_TRANSPOSE": {
+      "count": 8,
+      "positive": 4,
+      "negative": 4,
+      "success_rate": 0.5,
+      "laplace_success_rate": 0.5,
+      "mean_latency_improvement_pct": -12.182536649921735,
+      "labels": {
+        "TP": 0,
+        "FP": 2,
+        "FN": 4,
+        "TN": 2
+      }
+    },
+    "PROJECT_FILTER_TRANSPOSE > JOIN_TO_CORRELATE": {
+      "count": 2,
+      "positive": 0,
+      "negative": 2,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.25,
+      "mean_latency_improvement_pct": -38183.47768357137,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2
+      }
+    },
+    "PROJECT_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 13.738783382396194,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "PROJECT_REDUCE_EXPRESSIONS > FILTER_INTO_JOIN > UNION_TO_DISTINCT > JOIN_EXTRACT_FILTER": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -73.1909789445606,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    },
+    "PROJECT_REMOVE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 0.8996822604126958,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 0
+      }
+    },
+    "PROJECT_REMOVE > PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW": {
+      "count": 2,
+      "positive": 1,
+      "negative": 1,
+      "success_rate": 0.5,
+      "laplace_success_rate": 0.5,
+      "mean_latency_improvement_pct": -0.5709185857296222,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 1,
+        "TN": 1
+      }
+    },
+    "PROJECT_SUB_QUERY_TO_CORRELATE": {
+      "count": 1,
+      "positive": 1,
+      "negative": 0,
+      "success_rate": 1.0,
+      "laplace_success_rate": 0.6666666666666666,
+      "mean_latency_improvement_pct": 83.29841869784538,
+      "labels": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 0
+      }
+    },
+    "UNION_TO_DISTINCT > FILTER_INTO_JOIN": {
+      "count": 1,
+      "positive": 0,
+      "negative": 1,
+      "success_rate": 0.0,
+      "laplace_success_rate": 0.3333333333333333,
+      "mean_latency_improvement_pct": -89.3354887426246,
+      "labels": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 1
+      }
+    }
+  }
+}

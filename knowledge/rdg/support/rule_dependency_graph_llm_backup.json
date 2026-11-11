@@ -1,0 +1,556 @@
+{
+  "nodes": [
+    "SORT_UNION_TRANSPOSE_MATCH_NULL_FETCH",
+    "PROJECT_CORRELATE_TRANSPOSE",
+    "FILTER_MERGE",
+    "JOIN_ADD_REDUNDANT_SEMI_JOIN",
+    "AGGREGATE_EXPAND_DISTINCT_AGGREGATES",
+    "AGGREGATE_UNION_TRANSPOSE",
+    "JOIN_CONDITION_PUSH",
+    "SORT_REMOVE_CONSTANT_KEYS",
+    "AGGREGATE_JOIN_REMOVE",
+    "AGGREGATE_PROJECT_MERGE",
+    "PROJECT_WINDOW_TRANSPOSE",
+    "FILTER_VALUES_MERGE",
+    "FILTER_SET_OP_TRANSPOSE",
+    "JOIN_PROJECT_BOTH_TRANSPOSE_INCLUDE_OUTER",
+    "AGGREGATE_MERGE",
+    "AGGREGATE_UNION_AGGREGATE_FIRST",
+    "SORT_UNION_TRANSPOSE",
+    "AGGREGATE_JOIN_JOIN_REMOVE",
+    "PROJECT_SUB_QUERY_TO_CORRELATE",
+    "AGGREGATE_REDUCE_FUNCTIONS",
+    "AGGREGATE_VALUES",
+    "AGGREGATE_REMOVE",
+    "SEMI_JOIN_JOIN_TRANSPOSE",
+    "FILTER_SUB_QUERY_TO_CORRELATE",
+    "PROJECT_VALUES_MERGE",
+    "UNION_REMOVE",
+    "PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW",
+    "AGGREGATE_EXPAND_DISTINCT_AGGREGATES_TO_JOIN",
+    "PROJECT_FILTER_VALUES_MERGE",
+    "FILTER_INTO_JOIN",
+    "SEMI_JOIN_PROJECT_TRANSPOSE",
+    "UNION_TO_DISTINCT",
+    "UNION_PULL_UP_CONSTANTS",
+    "JOIN_SUB_QUERY_TO_CORRELATE",
+    "SORT_REMOVE",
+    "SORT_JOIN_TRANSPOSE",
+    "JOIN_LEFT_UNION_TRANSPOSE",
+    "PROJECT_JOIN_REMOVE",
+    "AGGREGATE_ANY_PULL_UP_CONSTANTS",
+    "FILTER_TABLE_FUNCTION_TRANSPOSE",
+    "FILTER_PROJECT_TRANSPOSE",
+    "JOIN_PUSH_EXPRESSIONS",
+    "AGGREGATE_JOIN_TRANSPOSE_EXTENDED",
+    "AGGREGATE_CASE_TO_FILTER",
+    "AGGREGATE_UNION_AGGREGATE_SECOND",
+    "PROJECT_REMOVE",
+    "JOIN_REDUCE_EXPRESSIONS",
+    "PROJECT_REDUCE_EXPRESSIONS",
+    "WINDOW_REDUCE_EXPRESSIONS",
+    "FILTER_REDUCE_EXPRESSIONS",
+    "PROJECT_FILTER_TRANSPOSE",
+    "PROJECT_JOIN_JOIN_REMOVE",
+    "JOIN_EXTRACT_FILTER",
+    "PROJECT_AGGREGATE_MERGE",
+    "JOIN_PUSH_TRANSITIVE_PREDICATES",
+    "FILTER_EXPAND_IS_NOT_DISTINCT_FROM",
+    "JOIN_RIGHT_UNION_TRANSPOSE",
+    "PROJECT_MERGE",
+    "SORT_PROJECT_TRANSPOSE",
+    "PROJECT_SET_OP_TRANSPOSE",
+    "JOIN_TO_CORRELATE",
+    "PROJECT_JOIN_TRANSPOSE",
+    "FILTER_CORRELATE",
+    "SEMI_JOIN_FILTER_TRANSPOSE",
+    "JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE",
+    "INTERSECT_TO_DISTINCT",
+    "FILTER_AGGREGATE_TRANSPOSE",
+    "JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER",
+    "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER",
+    "AGGREGATE_FILTER_TRANSPOSE"
+  ],
+  "edges": [
+    {
+      "from": "AGGREGATE_CASE_TO_FILTER",
+      "to": "PROJECT_AGGREGATE_MERGE",
+      "reason": "Removing CASE wrappers from aggregates satisfies the rule’s precondition that all GROUP BY aggregates are directly reflected in SELECT without CASE statements."
+    },
+    {
+      "from": "AGGREGATE_JOIN_JOIN_REMOVE",
+      "to": "JOIN_EXTRACT_FILTER",
+      "reason": "After removing the redundant left join, an INNER JOIN with a direct equality condition remains, meeting all conditions of JOIN_EXTRACT_FILTER."
+    },
+    {
+      "from": "AGGREGATE_JOIN_JOIN_REMOVE",
+      "to": "JOIN_TO_CORRELATE",
+      "reason": "After optimization, an INNER JOIN remains with no null‑producing side, satisfying the rule’s conditions."
+    },
+    {
+      "from": "AGGREGATE_MERGE",
+      "to": "AGGREGATE_ANY_PULL_UP_CONSTANTS",
+      "reason": "Merging nested GROUP BYs can bring constant grouping columns to the top level, exposing the precondition for pulling up constants."
+    },
+    {
+      "from": "AGGREGATE_PROJECT_MERGE",
+      "to": "PROJECT_REMOVE",
+      "reason": "After removing the inner SELECT, the outer projection becomes redundant and matches PROJECT_REMOVE conditions."
+    },
+    {
+      "from": "AGGREGATE_UNION_AGGREGATE_FIRST",
+      "to": "AGGREGATE_ANY_PULL_UP_CONSTANTS",
+      "reason": "Resulting single GROUP BY may contain a constant column, enabling the pull‑up rule."
+    },
+    {
+      "from": "AGGREGATE_UNION_AGGREGATE_FIRST",
+      "to": "AGGREGATE_REMOVE",
+      "reason": "Produces a GROUP BY on all SELECT columns with no aggregates, matching the rule's precondition."
+    },
+    {
+      "from": "AGGREGATE_UNION_AGGREGATE_FIRST",
+      "to": "UNION_PULL_UP_CONSTANTS",
+      "reason": "The rule preserves identical constant expressions across unioned selects, satisfying the precondition."
+    },
+    {
+      "from": "AGGREGATE_UNION_AGGREGATE_FIRST",
+      "to": "UNION_TO_DISTINCT",
+      "reason": "After the rule, a UNION ALL followed by GROUP BY removes duplicates, equivalent to UNION DISTINCT."
+    },
+    {
+      "from": "AGGREGATE_UNION_AGGREGATE_SECOND",
+      "to": "AGGREGATE_REMOVE",
+      "reason": "After the rule, the query groups by all selected columns with no aggregates, matching AGGREGATE_REMOVE's precondition."
+    },
+    {
+      "from": "AGGREGATE_UNION_AGGREGATE_SECOND",
+      "to": "AGGREGATE_UNION_TRANSPOSE",
+      "reason": "The rule produces a UNION ALL followed by a GROUP BY, satisfying the precondition of AGGREGATE_UNION_TRANSPOSE."
+    },
+    {
+      "from": "FILTER_AGGREGATE_TRANSPOSE",
+      "to": "FILTER_EXPAND_IS_NOT_DISTINCT_FROM",
+      "reason": "HAVING with IS NOT DISTINCT FROM can be moved into a WHERE clause by the transpose."
+    },
+    {
+      "from": "FILTER_AGGREGATE_TRANSPOSE",
+      "to": "FILTER_MERGE",
+      "reason": "Creates nested SELECTs with WHERE clauses, matching the merge precondition."
+    },
+    {
+      "from": "FILTER_AGGREGATE_TRANSPOSE",
+      "to": "FILTER_REDUCE_EXPRESSIONS",
+      "reason": "WHERE clause of the sub‑query may contain simplifiable expressions after transposition."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "FILTER_AGGREGATE_TRANSPOSE",
+      "reason": "Merging filters can produce a single WHERE clause that references only grouping columns, satisfying the precondition for aggregate‑transpose."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "FILTER_CORRELATE",
+      "reason": "The merged filter may still reference outer query columns, enabling the correlated subquery filter rule."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "FILTER_EXPAND_IS_NOT_DISTINCT_FROM",
+      "reason": "After merging, the WHERE clause will contain an IS NOT DISTINCT FROM expression, exposing that rule."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "FILTER_PROJECT_TRANSPOSE",
+      "reason": "Merging consecutive WHEREs yields a single filter after projection, matching the transpose requirement."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "FILTER_REDUCE_EXPRESSIONS",
+      "reason": "The combined condition may simplify to a tautology or contradiction, enabling expression reduction."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "FILTER_SET_OP_TRANSPOSE",
+      "reason": "A single WHERE clause directly after a set operation satisfies the set‑op transpose precondition."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "FILTER_SUB_QUERY_TO_CORRELATE",
+      "reason": "Merging preserves correlated subquery filters, exposing the sub‑query‑to‑correlate rule."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "FILTER_TABLE_FUNCTION_TRANSPOSE",
+      "reason": "The merged filter after a table function scan meets the transpose condition."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "FILTER_VALUES_MERGE",
+      "reason": "A single WHERE clause following a VALUES derived table enables values‑merge."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "PROJECT_FILTER_TRANSPOSE",
+      "reason": "The resulting query has a single filter after projection, satisfying the transpose rule."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "PROJECT_FILTER_VALUES_MERGE",
+      "reason": "Merged filter on a VALUES‑derived source matches the project‑filter‑values‑merge condition."
+    },
+    {
+      "from": "FILTER_MERGE",
+      "to": "SEMI_JOIN_FILTER_TRANSPOSE",
+      "reason": "A combined filter following a semi‑join exposes the semi‑join filter transpose pattern."
+    },
+    {
+      "from": "FILTER_PROJECT_TRANSPOSE",
+      "to": "FILTER_EXPAND_IS_NOT_DISTINCT_FROM",
+      "reason": "After rewriting, the WHERE clause still contains IS NOT DISTINCT FROM on original columns, satisfying the precondition."
+    },
+    {
+      "from": "FILTER_PROJECT_TRANSPOSE",
+      "to": "PROJECT_FILTER_TRANSPOSE",
+      "reason": "Produces Filter over Project with no windows and unaffected SELECT columns."
+    },
+    {
+      "from": "FILTER_PROJECT_TRANSPOSE",
+      "to": "SORT_PROJECT_TRANSPOSE",
+      "reason": "Moving the WHERE before SELECT makes ORDER BY directly follow projection, enabling Sort_Project_Transpose."
+    },
+    {
+      "from": "FILTER_TABLE_FUNCTION_TRANSPOSE",
+      "to": "FILTER_REDUCE_EXPRESSIONS",
+      "reason": "After moving the filter inside the lateral subquery, a WHERE clause remains that can be simplified, meeting FILTER_REDUCE_EXPRESSIONS."
+    },
+    {
+      "from": "FILTER_VALUES_MERGE",
+      "to": "PROJECT_VALUES_MERGE",
+      "reason": "Removing the WHERE leaves a SELECT directly over a VALUES clause, satisfying the precondition of PROJECT_VALUES_MERGE."
+    },
+    {
+      "from": "INTERSECT_TO_DISTINCT",
+      "to": "AGGREGATE_UNION_TRANSPOSE",
+      "reason": "The transformation produces a UNION ALL followed by a GROUP BY aggregate, enabling this rule."
+    },
+    {
+      "from": "JOIN_ADD_REDUNDANT_SEMI_JOIN",
+      "to": "JOIN_PUSH_TRANSITIVE_PREDICATES",
+      "reason": "Explicit left‑table filter from the semi‑join satisfies transitive predicate inference."
+    },
+    {
+      "from": "JOIN_CONDITION_PUSH",
+      "to": "FILTER_INTO_JOIN",
+      "reason": "filter moved into ON clause enables pushing it further into join inputs"
+    },
+    {
+      "from": "JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE",
+      "to": "FILTER_INTO_JOIN",
+      "reason": "Derived IS NOT NULL predicates reference only one table, enabling push into join input."
+    },
+    {
+      "from": "JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE",
+      "to": "FILTER_REDUCE_EXPRESSIONS",
+      "reason": "The join rule adds IS NOT NULL filters that may create redundant or tautological expressions, which FILTER_REDUCE_EXPRESSIONS can simplify."
+    },
+    {
+      "from": "JOIN_EXTRACT_FILTER",
+      "to": "AGGREGATE_FILTER_TRANSPOSE",
+      "reason": "Extracting the join into a Cartesian product with a WHERE preserves the WHERE before GROUP BY, enabling AGGREGATE_FILTER_TRANSPOSE to apply."
+    },
+    {
+      "from": "JOIN_EXTRACT_FILTER",
+      "to": "FILTER_AGGREGATE_TRANSPOSE",
+      "reason": "The added WHERE clause before GROUP BY can expose filter conditions that reference grouping columns, allowing FILTER_AGGREGATE_TRANSPOSE to apply."
+    },
+    {
+      "from": "JOIN_EXTRACT_FILTER",
+      "to": "FILTER_EXPAND_IS_NOT_DISTINCT_FROM",
+      "reason": "After extraction the original join condition appears in a WHERE clause, which can contain IS NOT DISTINCT FROM if present."
+    },
+    {
+      "from": "JOIN_EXTRACT_FILTER",
+      "to": "FILTER_REDUCE_EXPRESSIONS",
+      "reason": "A WHERE clause is produced, allowing potential reduction of tautological or always‑false expressions if they exist in the original join condition."
+    },
+    {
+      "from": "JOIN_LEFT_UNION_TRANSPOSE",
+      "to": "JOIN_EXTRACT_FILTER",
+      "reason": "Each resulting join after the split is an INNER JOIN with a concrete ON clause, satisfying JOIN_EXTRACT_FILTER preconditions."
+    },
+    {
+      "from": "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER",
+      "to": "JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE",
+      "reason": "By removing the intermediate project, the join condition becomes explicit on base tables, allowing derivation of NOT NULL filters from equi‑joins."
+    },
+    {
+      "from": "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER",
+      "to": "JOIN_EXTRACT_FILTER",
+      "reason": "The rewritten query still contains an inner join with a concrete ON clause comparing columns from both sides, satisfying the extract‑filter rule."
+    },
+    {
+      "from": "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER",
+      "to": "JOIN_PUSH_TRANSITIVE_PREDICATES",
+      "reason": "With the join condition expressed directly on base tables, transitive predicates can now be inferred for each side of the join."
+    },
+    {
+      "from": "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER",
+      "to": "JOIN_REDUCE_EXPRESSIONS",
+      "reason": "The explicit join condition produced by A may contain constant sub‑expressions that can be simplified, enabling expression reduction."
+    },
+    {
+      "from": "JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER",
+      "to": "PROJECT_JOIN_TRANSPOSE",
+      "reason": "The resulting Project over the JOIN contains no window functions or disallowed casts, satisfying the transpose rule’s preconditions."
+    },
+    {
+      "from": "JOIN_PUSH_EXPRESSIONS",
+      "to": "JOIN_EXTRACT_FILTER",
+      "reason": "After pushing the expression, the ON clause becomes a simple equality between columns, matching the pattern required for filter extraction."
+    },
+    {
+      "from": "JOIN_RIGHT_UNION_TRANSPOSE",
+      "to": "JOIN_ADD_REDUNDANT_SEMI_JOIN",
+      "reason": "After pushing the join inside the union, two new simple INNER JOINs appear, satisfying the precondition for adding a redundant semi‑join."
+    },
+    {
+      "from": "JOIN_TO_CORRELATE",
+      "to": "FILTER_CORRELATE",
+      "reason": "Produces a correlated WHERE EXISTS subquery that FILTER_CORRELATE can target."
+    },
+    {
+      "from": "JOIN_TO_CORRELATE",
+      "to": "FILTER_SUB_QUERY_TO_CORRELATE",
+      "reason": "Creates a correlated subquery in WHERE that FILTER_SUB_QUERY_TO_CORRELATE can act upon."
+    },
+    {
+      "from": "JOIN_TO_CORRELATE",
+      "to": "PROJECT_CORRELATE_TRANSPOSE",
+      "reason": "The rewritten plan yields a correlated EXISTS in WHERE with an outer SELECT, matching preconditions."
+    },
+    {
+      "from": "JOIN_TO_CORRELATE",
+      "to": "SEMI_JOIN_FILTER_TRANSPOSE",
+      "reason": "The EXISTS acts as a semi‑join followed by an outer filter, satisfying the rule’s pattern."
+    },
+    {
+      "from": "JOIN_TO_CORRELATE",
+      "to": "SEMI_JOIN_PROJECT_TRANSPOSE",
+      "reason": "The transformation produces a correlated EXISTS subquery that matches the semi-join pattern required by SEMI_JOIN_PROJECT_TRANSPOSE."
+    },
+    {
+      "from": "PROJECT_FILTER_VALUES_MERGE",
+      "to": "PROJECT_VALUES_MERGE",
+      "reason": "Resulting query contains a direct SELECT over VALUES, satisfying the values‑merge condition."
+    },
+    {
+      "from": "PROJECT_JOIN_TRANSPOSE",
+      "to": "AGGREGATE_JOIN_JOIN_REMOVE",
+      "reason": "Transposing projections can reduce columns used in the inner join, enabling its removal."
+    },
+    {
+      "from": "PROJECT_JOIN_TRANSPOSE",
+      "to": "AGGREGATE_JOIN_REMOVE",
+      "reason": "After projection transposition the outer aggregate may no longer need the right side of a left join."
+    },
+    {
+      "from": "PROJECT_JOIN_TRANSPOSE",
+      "to": "JOIN_EXTRACT_FILTER",
+      "reason": "The transpose preserves an inner join and projects all columns needed for the join condition."
+    },
+    {
+      "from": "PROJECT_JOIN_TRANSPOSE",
+      "to": "JOIN_PROJECT_BOTH_TRANSPOSE_INCLUDE_OUTER",
+      "reason": "Both sides of the join become projected SELECT sub‑queries, satisfying the rule."
+    },
+    {
+      "from": "PROJECT_JOIN_TRANSPOSE",
+      "to": "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER",
+      "reason": "The left input is projected by a SELECT, meeting the outer‑join requirement."
+    },
+    {
+      "from": "PROJECT_JOIN_TRANSPOSE",
+      "to": "JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER",
+      "reason": "The right input is also projected, enabling the rule."
+    },
+    {
+      "from": "PROJECT_JOIN_TRANSPOSE",
+      "to": "JOIN_PUSH_EXPRESSIONS",
+      "reason": "Projected columns remain available for expression‑only join conditions."
+    },
+    {
+      "from": "PROJECT_JOIN_TRANSPOSE",
+      "to": "JOIN_PUSH_TRANSITIVE_PREDICATES",
+      "reason": "A join still exists with all necessary columns projected, allowing transitive inference."
+    },
+    {
+      "from": "PROJECT_JOIN_TRANSPOSE",
+      "to": "JOIN_REDUCE_EXPRESSIONS",
+      "reason": "The join condition’s constant expressions are unchanged and remain reducible."
+    },
+    {
+      "from": "PROJECT_JOIN_TRANSPOSE",
+      "to": "JOIN_TO_CORRELATE",
+      "reason": "Join type is preserved and all columns are projected, satisfying correlation preconditions."
+    },
+    {
+      "from": "PROJECT_MERGE",
+      "to": "JOIN_PROJECT_BOTH_TRANSPOSE_INCLUDE_OUTER",
+      "reason": "Merging successive SELECTs can leave one project on each side of a join, satisfying the rule’s precondition."
+    },
+    {
+      "from": "PROJECT_MERGE",
+      "to": "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER",
+      "reason": "A merged single project before a left‑outer join meets the required pattern for this transpose rule."
+    },
+    {
+      "from": "PROJECT_MERGE",
+      "to": "JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER",
+      "reason": "Similarly, merging preserves a project on the right side of an outer join as needed."
+    },
+    {
+      "from": "PROJECT_MERGE",
+      "to": "PROJECT_CORRELATE_TRANSPOSE",
+      "reason": "After merging, a projection can still sit atop a correlated subquery, enabling this transpose rule."
+    },
+    {
+      "from": "PROJECT_MERGE",
+      "to": "PROJECT_JOIN_JOIN_REMOVE",
+      "reason": "A merged single project over nested joins can satisfy the conditions for removing a join."
+    },
+    {
+      "from": "PROJECT_MERGE",
+      "to": "PROJECT_JOIN_REMOVE",
+      "reason": "Merging preserves a project that selects only from one side of a join, matching this rule’s criteria."
+    },
+    {
+      "from": "PROJECT_MERGE",
+      "to": "PROJECT_JOIN_TRANSPOSE",
+      "reason": "The resulting single project before a join meets the precondition for PROJECT_JOIN_TRANSPOSE."
+    },
+    {
+      "from": "PROJECT_MERGE",
+      "to": "PROJECT_SET_OP_TRANSPOSE",
+      "reason": "After merging, a single project over a set operation with no window functions satisfies this transpose rule."
+    },
+    {
+      "from": "PROJECT_REDUCE_EXPRESSIONS",
+      "to": "AGGREGATE_PROJECT_MERGE",
+      "reason": "Reducing expressions can strip wrappers so the SELECT list matches GROUP BY columns, enabling merge."
+    },
+    {
+      "from": "PROJECT_REDUCE_EXPRESSIONS",
+      "to": "FILTER_PROJECT_TRANSPOSE",
+      "reason": "Simplifying projections removes transformations that might interfere with filtering, allowing transpose."
+    },
+    {
+      "from": "PROJECT_REDUCE_EXPRESSIONS",
+      "to": "JOIN_PROJECT_BOTH_TRANSPOSE_INCLUDE_OUTER",
+      "reason": "Reducing projections on both join sides satisfies the rule’s requirement of specific column projection."
+    },
+    {
+      "from": "PROJECT_REDUCE_EXPRESSIONS",
+      "to": "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER",
+      "reason": "Simplifying the left‑side projection makes the transpose applicable."
+    },
+    {
+      "from": "PROJECT_REDUCE_EXPRESSIONS",
+      "to": "JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER",
+      "reason": "Reducing the right‑side projection enables the rule to apply."
+    },
+    {
+      "from": "PROJECT_REDUCE_EXPRESSIONS",
+      "to": "PROJECT_AGGREGATE_MERGE",
+      "reason": "Removing unnecessary wrappers around aggregates lets the aggregate and project merge."
+    },
+    {
+      "from": "PROJECT_REDUCE_EXPRESSIONS",
+      "to": "PROJECT_CORRELATE_TRANSPOSE",
+      "reason": "Eliminating window functions from a projection on a correlated subquery satisfies the rule’s precondition."
+    },
+    {
+      "from": "PROJECT_REDUCE_EXPRESSIONS",
+      "to": "PROJECT_MERGE",
+      "reason": "By eliminating redundant casts, a non‑identity project can become an identity projection, allowing two consecutive SELECTs to be merged."
+    },
+    {
+      "from": "PROJECT_REDUCE_EXPRESSIONS",
+      "to": "PROJECT_REMOVE",
+      "reason": "Removing unnecessary casts or constants can make the outer SELECT identical to its subquery, enabling the removal of the redundant outer query."
+    },
+    {
+      "from": "PROJECT_REDUCE_EXPRESSIONS",
+      "to": "PROJECT_SET_OP_TRANSPOSE",
+      "reason": "Eliminating casts that change nullability satisfies the transpose rule’s requirement that no such casts remain in the SELECT list."
+    },
+    {
+      "from": "PROJECT_SET_OP_TRANSPOSE",
+      "to": "PROJECT_WINDOW_TRANSPOSE",
+      "reason": "Pushing non‑window expressions down can leave only window functions in the outer SELECT, satisfying the precondition of PROJECT_WINDOW_TRANSPOSE."
+    },
+    {
+      "from": "PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW",
+      "to": "PROJECT_WINDOW_TRANSPOSE",
+      "reason": "Resulting outer projection applies windows on inner columns, matching transpose precondition."
+    },
+    {
+      "from": "PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW",
+      "to": "SORT_PROJECT_TRANSPOSE",
+      "reason": "Outer projection may be followed by a sort, enabling transpose of the sort operation."
+    },
+    {
+      "from": "PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW",
+      "to": "WINDOW_REDUCE_EXPRESSIONS",
+      "reason": "Window functions present; operands and partition/order columns can be simplified."
+    },
+    {
+      "from": "PROJECT_WINDOW_TRANSPOSE",
+      "to": "PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW",
+      "reason": "The rewritten query will contain window functions, satisfying the rule's precondition."
+    },
+    {
+      "from": "SEMI_JOIN_FILTER_TRANSPOSE",
+      "to": "PROJECT_FILTER_TRANSPOSE",
+      "reason": "After transposing, the query becomes SELECT … FROM … WHERE …, matching the precondition of a project‑followed‑by‑filter rewrite."
+    },
+    {
+      "from": "SEMI_JOIN_FILTER_TRANSPOSE",
+      "to": "SEMI_JOIN_PROJECT_TRANSPOSE",
+      "reason": "The transformed query already projects before applying the semi‑join, fitting the pattern that the second rule targets."
+    },
+    {
+      "from": "SEMI_JOIN_JOIN_TRANSPOSE",
+      "to": "JOIN_ADD_REDUNDANT_SEMI_JOIN",
+      "reason": "After transformation, an INNER JOIN exists between a subquery and another table, satisfying the conditions for adding a redundant semi‑join."
+    },
+    {
+      "from": "SEMI_JOIN_JOIN_TRANSPOSE",
+      "to": "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER",
+      "reason": "The transformation turns the left input into a SELECT subquery projecting columns before an INNER JOIN, meeting the rule's precondition."
+    },
+    {
+      "from": "SORT_PROJECT_TRANSPOSE",
+      "to": "SORT_REMOVE",
+      "reason": "After SORT_PROJECT_TRANSPOSE, the SELECT result remains ordered by the same columns, satisfying SORT_REMOVE's precondition that the dataset is already sorted."
+    },
+    {
+      "from": "SORT_UNION_TRANSPOSE",
+      "to": "SORT_UNION_TRANSPOSE_MATCH_NULL_FETCH",
+      "reason": "A already adds ORDER BY to each SELECT and retains an overall ORDER BY with no OFFSET, satisfying the match rule."
+    },
+    {
+      "from": "UNION_PULL_UP_CONSTANTS",
+      "to": "PROJECT_SET_OP_TRANSPOSE",
+      "reason": "After pulling constants, an outer SELECT (project) is placed above the inner UNION ALL, matching the precondition for PROJECT_SET_OP_TRANSPOSE."
+    },
+    {
+      "from": "WINDOW_REDUCE_EXPRESSIONS",
+      "to": "PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW",
+      "reason": "After simplifying window expressions the plan still contains window functions in the SELECT list, satisfying the pre‑condition for converting to a logical project and window."
+    },
+    {
+      "from": "WINDOW_REDUCE_EXPRESSIONS",
+      "to": "PROJECT_WINDOW_TRANSPOSE",
+      "reason": "The reduction preserves the presence of window functions while potentially simplifying their arguments, enabling the transpose rule that reorganizes projection around windows."
+    }
+  ]
+}

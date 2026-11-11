@@ -1,0 +1,19 @@
+{
+  "baseline_policy": {
+    "alpha": 1,
+    "beta": 1,
+    "fn_recovery_threshold": 0.6,
+    "fp_guard_threshold": 0.4,
+    "min_support": 1,
+    "ranking": "train_only_median_latency_improvement",
+    "type": "conditional_mvm"
+  },
+  "created_at": "2026-09-07T04:29:52.526186+00:00",
+  "created_before_new_evaluation": true,
+  "latency_policy": "paired_alternating_original_rewrite",
+  "latency_runs": 5,
+  "parent_candidates_sha256": "25a20fbcaf39ad0156a80b623838db74156341ac3c80980965e24a7ac4dfcedf",
+  "parent_dataset": "${GARDEN_ROOT}/my_rewriter/query_sets/mvm_v1",
+  "selection_policy": "strict_cost",
+  "split_unit": "query_family"
+}

@@ -1,0 +1,47 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python / Java build artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.class
+*.jar
+CalciteRewrite/out/
+CalciteRewrite/target/
+
+# Generated indexes, models, and databases
+rag/chroma_db/
+*.sqlite
+*.sqlite3
+*.db
+*.pt
+*.pth
+*.ckpt
+
+# Runtime outputs
+results/
+outputs/
+logs/
+runlogs/
+*.log
+*.out
+*.err
+nohup.out
+
+# Local/legacy distribution pools outside the released workloads
+knowledge/distribution/dsb50_pool.json
+knowledge/distribution/imdb_pool.json
+knowledge/distribution/tpch_skew_sa_pool.json
+knowledge/distribution/tpch_uniform_sa_pool.json
+
+# Editors and OS files
+.idea/
+.vscode/
+.DS_Store
+*~

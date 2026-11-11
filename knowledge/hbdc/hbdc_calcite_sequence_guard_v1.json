@@ -1,0 +1,14 @@
+{
+  "name": "hbdc_calcite_sequence_guard_v1",
+  "version": 1,
+  "scope": "candidate selection before HBDC ranking",
+  "overrides": [
+    {
+      "id": "calcite_suppress_singleton_aggregate_project_merge_v1",
+      "workloads": ["calcite"],
+      "exact_rules": ["AGGREGATE_PROJECT_MERGE"],
+      "decision": "original",
+      "reason": "Calcite crossover evidence shows that selecting AGGREGATE_PROJECT_MERGE as the complete singleton sequence can cause a large regression; preserve candidates where the rule participates in a multi-rule sequence"
+    }
+  ]
+}

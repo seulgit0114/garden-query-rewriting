@@ -1,0 +1,2612 @@
+{
+  "SORT_UNION_TRANSPOSE_MATCH_NULL_FETCH": {
+    "operators": [
+      "SORT",
+      "UNION"
+    ],
+    "actions": [
+      "transpose",
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "sort_limit_pressure": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "ORDER BY + LIMIT present",
+        "basis": "SORT with LIMIT benefits from early sort pushdown (TopN)"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "PROJECT_CORRELATE_TRANSPOSE": {
+    "operators": [
+      "PROJECT",
+      "CORRELATE"
+    ],
+    "actions": [
+      "transpose",
+      "decorrelate_or_correlate"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early"
+      },
+      "join_key_ndv": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "correlated column NDV",
+        "basis": "NDV affects decorrelated join size"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "FILTER_MERGE": {
+    "operators": [
+      "FILTER"
+    ],
+    "actions": [
+      "merge"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.2,
+        "direction": "conditional",
+        "condition": "merged projections",
+        "basis": "PROJECT MERGE has weak stat dependency"
+      },
+      "mcv_skew": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "high MCV frequency on filtered column",
+        "basis": "skewed columns benefit most from early filter pushdown"
+      },
+      "histogram_skew": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "histogram shows non-uniform distribution",
+        "basis": "selectivity estimation more accurate with skew"
+      },
+      "null_fraction": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "high null fraction on filtered column",
+        "basis": "null-aware filter pushdown may or may not help"
+      },
+      "group_key_ndv": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "merging aggregates",
+        "basis": "aggregate merge has moderate stat sensitivity"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "JOIN_ADD_REDUNDANT_SEMI_JOIN": {
+    "operators": [
+      "JOIN"
+    ],
+    "actions": [
+      "semi_join_filtering"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.85,
+        "direction": "benefit",
+        "condition": "semi-join can filter the left input significantly",
+        "basis": "redundant semi-join is useful only when it prunes rows before the full join"
+      },
+      "join_key_ndv": {
+        "relevance": 0.65,
+        "direction": "conditional",
+        "condition": "join key NDV and fanout",
+        "basis": "semi-join reduction depends on matching-key selectivity"
+      },
+      "join_width": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "very wide join query",
+        "basis": "adding a redundant semi-join can increase plan complexity"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "AGGREGATE_EXPAND_DISTINCT_AGGREGATES": {
+    "operators": [
+      "AGGREGATE"
+    ],
+    "actions": [
+      "expand"
+    ],
+    "features": {
+      "distinct_arg_ndv": {
+        "relevance": 0.9,
+        "direction": "risk",
+        "condition": "DISTINCT aggregate argument has high NDV",
+        "basis": "expanding COUNT(DISTINCT ...) with high NDV argument multiplies groups"
+      },
+      "group_key_ndv": {
+        "relevance": 0.7,
+        "direction": "risk",
+        "condition": "GROUP BY key has high NDV",
+        "basis": "high NDV groups amplify expansion cost"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "high"
+  },
+  "AGGREGATE_UNION_TRANSPOSE": {
+    "operators": [
+      "AGGREGATE",
+      "UNION"
+    ],
+    "actions": [
+      "transpose",
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "mcv_skew": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "skewed grouping keys",
+        "basis": "skewed groups may cause data skew after transformation"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "JOIN_CONDITION_PUSH": {
+    "operators": [
+      "JOIN"
+    ],
+    "actions": [
+      "pushdown"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.75,
+        "direction": "benefit",
+        "condition": "join condition contains selective predicates",
+        "basis": "pushing join conditions closer to scan reduces intermediate rows"
+      },
+      "join_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "join key selectivity",
+        "basis": "benefit depends on how selective the pushed condition is"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "SORT_REMOVE_CONSTANT_KEYS": {
+    "operators": [
+      "SORT"
+    ],
+    "actions": [
+      "remove",
+      "constant_fold"
+    ],
+    "features": {
+      "constant_expression_ratio": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "ORDER BY keys are constant or partially constant",
+        "basis": "removing constant sort keys avoids unnecessary sort work"
+      },
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "large sort input",
+        "basis": "sort-key removal matters more for large inputs"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "high"
+  },
+  "AGGREGATE_JOIN_REMOVE": {
+    "operators": [
+      "JOIN",
+      "AGGREGATE"
+    ],
+    "actions": [
+      "remove"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.8,
+        "direction": "risk",
+        "condition": "many tables in FROM clause (>=8)",
+        "basis": "JOIN transformations can expand intermediate join structure"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "benefit",
+        "condition": "redundant operator present",
+        "basis": "removing redundant ops benefits more with larger input"
+      },
+      "group_key_ndv": {
+        "relevance": 0.9,
+        "direction": "conditional",
+        "condition": "GROUP BY key NDV",
+        "basis": "high NDV group keys mean many groups, changing agg order risky"
+      },
+      "mcv_skew": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "skewed grouping keys",
+        "basis": "skewed groups may cause data skew after transformation"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "AGGREGATE_PROJECT_MERGE": {
+    "operators": [
+      "AGGREGATE",
+      "PROJECT"
+    ],
+    "actions": [
+      "merge"
+    ],
+    "features": {
+      "group_key_ndv": {
+        "relevance": 0.8,
+        "direction": "conditional",
+        "condition": "GROUP BY key cardinality",
+        "basis": "merging AGG+PROJECT restructures GROUP BY; risky with high NDV"
+      },
+      "input_cardinality": {
+        "relevance": 0.25,
+        "direction": "conditional",
+        "condition": "input size",
+        "basis": "moderate sensitivity; merge itself does not change cardinality",
+        "base_relevance": 0.5,
+        "calibration": {
+          "n": 158,
+          "regression_rate": 0.3797,
+          "improvement_rate": 0.0253,
+          "avg_positive_delta": 192.5466,
+          "avg_negative_delta_abs": 0.1075,
+          "adjustment": -0.25,
+          "min_support": 5,
+          "levels": {
+            "medium": 52,
+            "high": 106
+          },
+          "method": "direction_preserving_trace_calibration"
+        }
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium",
+    "calibration_source": "execution_trace"
+  },
+  "PROJECT_WINDOW_TRANSPOSE": {
+    "operators": [
+      "PROJECT",
+      "WINDOW"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early"
+      },
+      "sort_limit_pressure": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "window ORDER BY/PARTITION BY pressure",
+        "basis": "window operations often depend on sort/partition costs"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "FILTER_VALUES_MERGE": {
+    "operators": [
+      "FILTER",
+      "VALUES"
+    ],
+    "actions": [
+      "values_simplification",
+      "merge"
+    ],
+    "features": {
+      "value_tuple_count": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "VALUES input is small and literal",
+        "basis": "filter over literal VALUES can be evaluated during rewrite"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "filter removes many VALUES tuples",
+        "basis": "merging filter into VALUES reduces literal rows early"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "high"
+  },
+  "FILTER_SET_OP_TRANSPOSE": {
+    "operators": [
+      "FILTER"
+    ],
+    "actions": [
+      "transpose",
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "filter predicates can reduce intermediate rows",
+        "basis": "FILTER ops reduce cardinality before expensive joins"
+      },
+      "mcv_skew": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "high MCV frequency on filtered column",
+        "basis": "skewed columns benefit most from early filter pushdown"
+      },
+      "histogram_skew": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "histogram shows non-uniform distribution",
+        "basis": "selectivity estimation more accurate with skew"
+      },
+      "null_fraction": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "high null fraction on filtered column",
+        "basis": "null-aware filter pushdown may or may not help"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "JOIN_PROJECT_BOTH_TRANSPOSE_INCLUDE_OUTER": {
+    "operators": [
+      "JOIN",
+      "PROJECT"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "AGGREGATE_MERGE": {
+    "operators": [
+      "AGGREGATE"
+    ],
+    "actions": [
+      "merge"
+    ],
+    "features": {
+      "group_key_ndv": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "merging aggregates",
+        "basis": "aggregate merge has moderate stat sensitivity"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate input size",
+        "basis": "large input benefits from early aggregation pushdown"
+      },
+      "mcv_skew": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "skewed grouping keys",
+        "basis": "skewed groups may cause data skew after transformation"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.2,
+        "direction": "conditional",
+        "condition": "merged projections",
+        "basis": "PROJECT MERGE has weak stat dependency"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "AGGREGATE_UNION_AGGREGATE_FIRST": {
+    "operators": [
+      "AGGREGATE",
+      "UNION"
+    ],
+    "actions": [
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "group_key_ndv": {
+        "relevance": 0.9,
+        "direction": "conditional",
+        "condition": "GROUP BY key NDV",
+        "basis": "high NDV group keys mean many groups, changing agg order risky"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "mcv_skew": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "skewed grouping keys",
+        "basis": "skewed groups may cause data skew after transformation"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "SORT_UNION_TRANSPOSE": {
+    "operators": [
+      "SORT",
+      "UNION"
+    ],
+    "actions": [
+      "transpose",
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "sort_limit_pressure": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "ORDER BY + LIMIT present",
+        "basis": "SORT with LIMIT benefits from early sort pushdown (TopN)"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "AGGREGATE_JOIN_JOIN_REMOVE": {
+    "operators": [
+      "JOIN",
+      "AGGREGATE"
+    ],
+    "actions": [
+      "remove"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.8,
+        "direction": "risk",
+        "condition": "many tables in FROM clause (>=8)",
+        "basis": "JOIN transformations can expand intermediate join structure"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "benefit",
+        "condition": "redundant operator present",
+        "basis": "removing redundant ops benefits more with larger input"
+      },
+      "group_key_ndv": {
+        "relevance": 0.9,
+        "direction": "conditional",
+        "condition": "GROUP BY key NDV",
+        "basis": "high NDV group keys mean many groups, changing agg order risky"
+      },
+      "mcv_skew": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "skewed grouping keys",
+        "basis": "skewed groups may cause data skew after transformation"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "PROJECT_SUB_QUERY_TO_CORRELATE": {
+    "operators": [
+      "PROJECT",
+      "CORRELATE"
+    ],
+    "actions": [
+      "decorrelate_or_correlate"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "outer cardinality",
+        "basis": "project decorrelation benefit scales with outer size"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "low"
+  },
+  "AGGREGATE_REDUCE_FUNCTIONS": {
+    "operators": [
+      "AGGREGATE"
+    ],
+    "actions": [
+      "reduce"
+    ],
+    "features": {
+      "group_key_ndv": {
+        "relevance": 0.9,
+        "direction": "conditional",
+        "condition": "GROUP BY key NDV",
+        "basis": "high NDV group keys mean many groups, changing agg order risky"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate input size",
+        "basis": "large input benefits from early aggregation pushdown"
+      },
+      "mcv_skew": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "skewed grouping keys",
+        "basis": "skewed groups may cause data skew after transformation"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "AGGREGATE_VALUES": {
+    "operators": [
+      "AGGREGATE",
+      "VALUES"
+    ],
+    "actions": [
+      "empty_relation_simplification",
+      "constant_fold"
+    ],
+    "features": {
+      "empty_input_certainty": {
+        "relevance": 0.95,
+        "direction": "benefit",
+        "condition": "aggregate input is provably empty",
+        "basis": "AGGREGATE_VALUES replaces aggregate over empty input with literal 0 or NULL"
+      },
+      "filter_contradiction": {
+        "relevance": 0.85,
+        "direction": "benefit",
+        "condition": "WHERE predicates are contradictory or exclude all rows",
+        "basis": "empty input is commonly inferred from impossible filter predicates"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "estimated aggregate input cardinality is zero or near zero",
+        "basis": "zero-row aggregate can be simplified without scanning input"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "high"
+  },
+  "AGGREGATE_REMOVE": {
+    "operators": [
+      "AGGREGATE"
+    ],
+    "actions": [
+      "remove"
+    ],
+    "features": {
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "aggregate is provably redundant",
+        "basis": "removing redundant aggregation eliminates unnecessary grouping"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "benefit",
+        "condition": "large input to redundant aggregate",
+        "basis": "removal benefit scales with input size"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "SEMI_JOIN_JOIN_TRANSPOSE": {
+    "operators": [
+      "JOIN"
+    ],
+    "actions": [
+      "transpose",
+      "semi_join_filtering"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "join_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "semi-join key NDV",
+        "basis": "semi-join selectivity depends on matching key cardinality"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "semi-join filters many rows from one side",
+        "basis": "semi-join is beneficial when it significantly reduces a join input"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "FILTER_SUB_QUERY_TO_CORRELATE": {
+    "operators": [
+      "FILTER",
+      "CORRELATE"
+    ],
+    "actions": [
+      "decorrelate_or_correlate"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "outer query cardinality",
+        "basis": "decorrelation benefit scales with outer cardinality"
+      },
+      "join_key_ndv": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "correlated column selectivity",
+        "basis": "decorrelated join size depends on correlated column NDV"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "PROJECT_VALUES_MERGE": {
+    "operators": [
+      "PROJECT",
+      "VALUES"
+    ],
+    "actions": [
+      "values_simplification",
+      "merge"
+    ],
+    "features": {
+      "value_tuple_count": {
+        "relevance": 0.7,
+        "direction": "benefit",
+        "condition": "VALUES input is small and literal",
+        "basis": "project over literal VALUES can be evaluated during rewrite"
+      },
+      "constant_expression_ratio": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "project expressions over VALUES are reducible",
+        "basis": "literal projection can be folded into VALUES tuples"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "high"
+  },
+  "UNION_REMOVE": {
+    "operators": [
+      "UNION"
+    ],
+    "actions": [
+      "remove",
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "PROJECT_TO_LOGICAL_PROJECT_AND_WINDOW": {
+    "operators": [
+      "PROJECT",
+      "WINDOW"
+    ],
+    "actions": [
+      "unknown"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.3,
+        "direction": "conditional",
+        "condition": "large projection input",
+        "basis": "PROJECT alone has weak stat dependency"
+      },
+      "sort_limit_pressure": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "window ORDER BY/PARTITION BY pressure",
+        "basis": "window operations often depend on sort/partition costs"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "AGGREGATE_EXPAND_DISTINCT_AGGREGATES_TO_JOIN": {
+    "operators": [
+      "JOIN",
+      "AGGREGATE"
+    ],
+    "actions": [
+      "expand"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.8,
+        "direction": "risk",
+        "condition": "many tables in FROM clause (>=8)",
+        "basis": "JOIN transformations can expand intermediate join structure"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "large input tables",
+        "basis": "high cardinality join inputs amplify transformation cost"
+      },
+      "group_key_ndv": {
+        "relevance": 0.7,
+        "direction": "risk",
+        "condition": "GROUP BY key has high NDV",
+        "basis": "expansion increases complexity when group count is large"
+      },
+      "mcv_skew": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "skewed grouping keys",
+        "basis": "skewed groups may cause data skew after transformation"
+      },
+      "distinct_arg_ndv": {
+        "relevance": 0.9,
+        "direction": "risk",
+        "condition": "DISTINCT aggregate argument has high NDV",
+        "basis": "expanding distinct aggregates with high NDV adds many groups"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "PROJECT_FILTER_VALUES_MERGE": {
+    "operators": [
+      "PROJECT",
+      "FILTER",
+      "VALUES"
+    ],
+    "actions": [
+      "values_simplification",
+      "merge"
+    ],
+    "features": {
+      "value_tuple_count": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "literal VALUES input",
+        "basis": "combined project/filter over VALUES can be collapsed at planning time"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "filter removes VALUES tuples",
+        "basis": "filtering literal tuples reduces derived rows"
+      },
+      "constant_expression_ratio": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "project expressions are reducible",
+        "basis": "literal expressions can be folded"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "high"
+  },
+  "FILTER_INTO_JOIN": {
+    "operators": [
+      "FILTER",
+      "JOIN"
+    ],
+    "actions": [
+      "pushdown"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "filter predicates can reduce join input rows",
+        "basis": "FILTER pushdown reduces join input cardinality strongly"
+      },
+      "join_width": {
+        "relevance": 1.0,
+        "direction": "risk",
+        "condition": "many-table or implicit join query (>=8 tables)",
+        "basis": "INTO_JOIN on wide implicit-join can cause CROSS JOIN explosion",
+        "base_relevance": 0.95,
+        "calibration": {
+          "n": 193,
+          "regression_rate": 0.3109,
+          "improvement_rate": 0.0207,
+          "avg_positive_delta": 192.5637,
+          "avg_negative_delta_abs": 0.1075,
+          "adjustment": 0.25,
+          "min_support": 5,
+          "levels": {
+            "medium:7": 28,
+            "high:8": 48,
+            "medium:5": 40,
+            "high:10": 16,
+            "high:9": 24,
+            "medium:4": 7,
+            "medium:6": 6,
+            "high:11": 24
+          },
+          "method": "direction_preserving_trace_calibration"
+        }
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "high",
+    "calibration_source": "execution_trace"
+  },
+  "SEMI_JOIN_PROJECT_TRANSPOSE": {
+    "operators": [
+      "JOIN",
+      "PROJECT"
+    ],
+    "actions": [
+      "transpose",
+      "semi_join_filtering"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "join_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "semi-join key NDV",
+        "basis": "semi-join selectivity depends on matching key cardinality"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "semi-join filters many rows from one side",
+        "basis": "semi-join is beneficial when it significantly reduces a join input"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "UNION_TO_DISTINCT": {
+    "operators": [
+      "UNION"
+    ],
+    "actions": [
+      "distinct_conversion"
+    ],
+    "features": {
+      "dedup_key_ndv": {
+        "relevance": 0.85,
+        "direction": "risk",
+        "condition": "UNION DISTINCT keys have high NDV",
+        "basis": "converting to DISTINCT introduces deduplication over branch outputs"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "large union inputs",
+        "basis": "deduplication cost scales with branch output size"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "UNION_PULL_UP_CONSTANTS": {
+    "operators": [
+      "UNION"
+    ],
+    "actions": [
+      "pull_up",
+      "constant_fold",
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "constant_expression_ratio": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "expressions or keys are constant/reducible",
+        "basis": "constant folding/removal is useful when expressions are provably constant"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "JOIN_SUB_QUERY_TO_CORRELATE": {
+    "operators": [
+      "JOIN",
+      "CORRELATE"
+    ],
+    "actions": [
+      "decorrelate_or_correlate"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.8,
+        "direction": "risk",
+        "condition": "many tables in FROM clause (>=8)",
+        "basis": "JOIN transformations can expand intermediate join structure"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "large input tables",
+        "basis": "high cardinality join inputs amplify transformation cost"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "SORT_REMOVE": {
+    "operators": [
+      "SORT"
+    ],
+    "actions": [
+      "remove"
+    ],
+    "features": {
+      "sort_limit_pressure": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "ORDER BY/LIMIT semantics permit sort removal",
+        "basis": "sort removal is only safe when ordering is redundant"
+      },
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "large redundant sort input",
+        "basis": "removing redundant sort saves more work on larger inputs"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "SORT_JOIN_TRANSPOSE": {
+    "operators": [
+      "JOIN",
+      "SORT"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early"
+      },
+      "sort_limit_pressure": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "ORDER BY + LIMIT present",
+        "basis": "SORT with LIMIT benefits from early sort pushdown (TopN)"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "JOIN_LEFT_UNION_TRANSPOSE": {
+    "operators": [
+      "JOIN",
+      "UNION"
+    ],
+    "actions": [
+      "transpose",
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "PROJECT_JOIN_REMOVE": {
+    "operators": [
+      "JOIN",
+      "PROJECT"
+    ],
+    "actions": [
+      "remove"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.8,
+        "direction": "risk",
+        "condition": "many tables in FROM clause (>=8)",
+        "basis": "JOIN transformations can expand intermediate join structure"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "benefit",
+        "condition": "redundant operator present",
+        "basis": "removing redundant ops benefits more with larger input"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "AGGREGATE_ANY_PULL_UP_CONSTANTS": {
+    "operators": [
+      "AGGREGATE"
+    ],
+    "actions": [
+      "pull_up",
+      "constant_fold"
+    ],
+    "features": {
+      "constant_expression_ratio": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "aggregate/group expressions contain constants",
+        "basis": "pulling constants out of aggregate reduces unnecessary grouping/expression work"
+      },
+      "group_key_ndv": {
+        "relevance": 0.3,
+        "direction": "conditional",
+        "condition": "non-constant GROUP BY key NDV",
+        "basis": "remaining grouping cardinality determines residual aggregate cost"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "FILTER_TABLE_FUNCTION_TRANSPOSE": {
+    "operators": [
+      "FILTER"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "filter predicates can reduce intermediate rows",
+        "basis": "FILTER ops reduce cardinality before expensive joins"
+      },
+      "mcv_skew": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "high MCV frequency on filtered column",
+        "basis": "skewed columns benefit most from early filter pushdown"
+      },
+      "histogram_skew": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "histogram shows non-uniform distribution",
+        "basis": "selectivity estimation more accurate with skew"
+      },
+      "null_fraction": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "high null fraction on filtered column",
+        "basis": "null-aware filter pushdown may or may not help"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "FILTER_PROJECT_TRANSPOSE": {
+    "operators": [
+      "FILTER",
+      "PROJECT"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.7,
+        "direction": "benefit",
+        "condition": "filter can be pushed below projection",
+        "basis": "filter-below-project reduces rows for subsequent operators"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "JOIN_PUSH_EXPRESSIONS": {
+    "operators": [
+      "JOIN"
+    ],
+    "actions": [
+      "pushdown"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.85,
+        "direction": "risk",
+        "condition": "many join tables",
+        "basis": "pushdown into wide joins can expand structure"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "large input tables",
+        "basis": "high cardinality join inputs amplify transformation cost"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "filter can be pushed below join",
+        "basis": "filter pushdown reduces join input rows strongly"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "AGGREGATE_JOIN_TRANSPOSE_EXTENDED": {
+    "operators": [
+      "AGGREGATE",
+      "JOIN"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "group_key_ndv": {
+        "relevance": 0.8,
+        "direction": "conditional",
+        "condition": "GROUP BY key NDV vs join output size",
+        "basis": "transpose beneficial only if agg reduces rows more than join expansion"
+      },
+      "join_width": {
+        "relevance": 0.7,
+        "direction": "risk",
+        "condition": "many join tables",
+        "basis": "transposing over wide join can produce large intermediate results"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "relative table sizes",
+        "basis": "aggregate pushdown through join most effective when outer is large"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "AGGREGATE_CASE_TO_FILTER": {
+    "operators": [
+      "AGGREGATE",
+      "FILTER"
+    ],
+    "actions": [
+      "extract"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "CASE condition inside aggregate is selective",
+        "basis": "turning CASE aggregates into FILTER aggregates exposes selective predicates"
+      },
+      "mcv_skew": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "CASE predicate column has skewed values",
+        "basis": "skewed predicate values make filtered aggregate more selective"
+      },
+      "group_key_ndv": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "GROUP BY key cardinality",
+        "basis": "aggregate benefit still depends on number of groups"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "AGGREGATE_UNION_AGGREGATE_SECOND": {
+    "operators": [
+      "AGGREGATE",
+      "UNION"
+    ],
+    "actions": [
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "group_key_ndv": {
+        "relevance": 0.9,
+        "direction": "conditional",
+        "condition": "GROUP BY key NDV",
+        "basis": "high NDV group keys mean many groups, changing agg order risky"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "mcv_skew": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "skewed grouping keys",
+        "basis": "skewed groups may cause data skew after transformation"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "PROJECT_REMOVE": {
+    "operators": [
+      "PROJECT"
+    ],
+    "actions": [
+      "remove"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.3,
+        "direction": "benefit",
+        "condition": "redundant projection present",
+        "basis": "removing trivial projections reduces planning overhead"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "low",
+    "calibration_source": "execution_trace"
+  },
+  "JOIN_REDUCE_EXPRESSIONS": {
+    "operators": [
+      "JOIN"
+    ],
+    "actions": [
+      "reduce"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.8,
+        "direction": "risk",
+        "condition": "many tables in FROM clause (>=8)",
+        "basis": "JOIN transformations can expand intermediate join structure"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "large input tables",
+        "basis": "high cardinality join inputs amplify transformation cost"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "PROJECT_REDUCE_EXPRESSIONS": {
+    "operators": [
+      "PROJECT"
+    ],
+    "actions": [
+      "reduce"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.3,
+        "direction": "conditional",
+        "condition": "large projection input",
+        "basis": "PROJECT alone has weak stat dependency"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "WINDOW_REDUCE_EXPRESSIONS": {
+    "operators": [
+      "WINDOW"
+    ],
+    "actions": [
+      "reduce"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "large window input",
+        "basis": "window expression simplification has larger impact on large inputs"
+      },
+      "sort_limit_pressure": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "window ORDER BY/PARTITION BY pressure",
+        "basis": "window operations often depend on sort/partition costs"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "FILTER_REDUCE_EXPRESSIONS": {
+    "operators": [
+      "FILTER"
+    ],
+    "actions": [
+      "reduce"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "filter has reducible boolean expressions",
+        "basis": "simplifying filter expressions can improve plan quality"
+      },
+      "join_width": {
+        "relevance": 0.514,
+        "direction": "risk",
+        "condition": "many join tables",
+        "basis": "expression reduction in wide join context can trigger bad rearrangement",
+        "base_relevance": 0.5,
+        "calibration": {
+          "n": 22,
+          "regression_rate": 0.0455,
+          "improvement_rate": 0.0,
+          "avg_positive_delta": 0.5453,
+          "avg_negative_delta_abs": 0.0,
+          "adjustment": 0.014,
+          "min_support": 5,
+          "levels": {
+            "medium:7": 3,
+            "medium:5": 1,
+            "high:10": 2,
+            "high:9": 1,
+            "medium:6": 5,
+            "high:8": 9,
+            "medium:4": 1
+          },
+          "method": "direction_preserving_trace_calibration"
+        }
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium",
+    "calibration_source": "execution_trace"
+  },
+  "PROJECT_FILTER_TRANSPOSE": {
+    "operators": [
+      "FILTER",
+      "PROJECT"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "filter predicates can reduce intermediate rows",
+        "basis": "FILTER ops reduce cardinality before expensive joins"
+      },
+      "mcv_skew": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "high MCV frequency on filtered column",
+        "basis": "skewed columns benefit most from early filter pushdown"
+      },
+      "histogram_skew": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "histogram shows non-uniform distribution",
+        "basis": "selectivity estimation more accurate with skew"
+      },
+      "null_fraction": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "high null fraction on filtered column",
+        "basis": "null-aware filter pushdown may or may not help"
+      },
+      "input_cardinality": {
+        "relevance": 0.4566,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early",
+        "base_relevance": 0.5,
+        "calibration": {
+          "n": 5,
+          "regression_rate": 0.4,
+          "improvement_rate": 0.0,
+          "avg_positive_delta": 0.0839,
+          "avg_negative_delta_abs": 0.0,
+          "adjustment": -0.0434,
+          "min_support": 5,
+          "levels": {
+            "medium": 1,
+            "high": 4
+          },
+          "method": "direction_preserving_trace_calibration"
+        }
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "join_width": {
+        "relevance": 0.6867,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes",
+        "base_relevance": 0.6,
+        "calibration": {
+          "n": 5,
+          "regression_rate": 0.4,
+          "improvement_rate": 0.0,
+          "avg_positive_delta": 0.0839,
+          "avg_negative_delta_abs": 0.0,
+          "adjustment": 0.0867,
+          "min_support": 5,
+          "levels": {
+            "medium:4": 1,
+            "high:14": 4
+          },
+          "method": "direction_preserving_trace_calibration"
+        }
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low",
+    "calibration_source": "execution_trace"
+  },
+  "PROJECT_JOIN_JOIN_REMOVE": {
+    "operators": [
+      "JOIN",
+      "PROJECT"
+    ],
+    "actions": [
+      "remove"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.8,
+        "direction": "risk",
+        "condition": "many tables in FROM clause (>=8)",
+        "basis": "JOIN transformations can expand intermediate join structure"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "benefit",
+        "condition": "redundant operator present",
+        "basis": "removing redundant ops benefits more with larger input"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "JOIN_EXTRACT_FILTER": {
+    "operators": [
+      "JOIN",
+      "FILTER"
+    ],
+    "actions": [
+      "extract"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "JOIN condition contains extractable filter predicates",
+        "basis": "extracting selective filters from join conditions enables early pruning"
+      },
+      "join_key_ndv": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "join key NDV",
+        "basis": "filter extraction benefit depends on predicate selectivity vs join NDV"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "high"
+  },
+  "PROJECT_AGGREGATE_MERGE": {
+    "operators": [
+      "AGGREGATE",
+      "PROJECT"
+    ],
+    "actions": [
+      "merge"
+    ],
+    "features": {
+      "group_key_ndv": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "merging aggregates",
+        "basis": "aggregate merge has moderate stat sensitivity"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate input size",
+        "basis": "large input benefits from early aggregation pushdown"
+      },
+      "mcv_skew": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "skewed grouping keys",
+        "basis": "skewed groups may cause data skew after transformation"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.2,
+        "direction": "conditional",
+        "condition": "merged projections",
+        "basis": "PROJECT MERGE has weak stat dependency"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "JOIN_PUSH_TRANSITIVE_PREDICATES": {
+    "operators": [
+      "JOIN"
+    ],
+    "actions": [
+      "pushdown"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.85,
+        "direction": "risk",
+        "condition": "many join tables",
+        "basis": "pushdown into wide joins can expand structure"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "large input tables",
+        "basis": "high cardinality join inputs amplify transformation cost"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "filter can be pushed below join",
+        "basis": "filter pushdown reduces join input rows strongly"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "FILTER_EXPAND_IS_NOT_DISTINCT_FROM": {
+    "operators": [
+      "FILTER"
+    ],
+    "actions": [
+      "expand"
+    ],
+    "features": {
+      "null_fraction": {
+        "relevance": 0.9,
+        "direction": "conditional",
+        "condition": "columns in IS NOT DISTINCT FROM have high NULL fraction",
+        "basis": "this rule expands null-safe equality, whose usefulness depends on NULL prevalence"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.4,
+        "direction": "benefit",
+        "condition": "expanded predicate remains selective",
+        "basis": "expanded filter helps only if it can prune rows"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "high"
+  },
+  "JOIN_RIGHT_UNION_TRANSPOSE": {
+    "operators": [
+      "JOIN",
+      "UNION"
+    ],
+    "actions": [
+      "transpose",
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "PROJECT_MERGE": {
+    "operators": [
+      "PROJECT"
+    ],
+    "actions": [
+      "merge"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.3,
+        "direction": "conditional",
+        "condition": "large projection input",
+        "basis": "PROJECT alone has weak stat dependency"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.2,
+        "direction": "conditional",
+        "condition": "merged projections",
+        "basis": "PROJECT MERGE has weak stat dependency"
+      },
+      "group_key_ndv": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "merging aggregates",
+        "basis": "aggregate merge has moderate stat sensitivity"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "SORT_PROJECT_TRANSPOSE": {
+    "operators": [
+      "SORT",
+      "PROJECT"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "sort_limit_pressure": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "ORDER BY + LIMIT present",
+        "basis": "transposing SORT below PROJECT enables early TopN"
+      },
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "large projection input",
+        "basis": "transpose benefit larger with bigger input"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "PROJECT_SET_OP_TRANSPOSE": {
+    "operators": [
+      "PROJECT"
+    ],
+    "actions": [
+      "transpose",
+      "setop_branch_pushdown"
+    ],
+    "features": {
+      "input_cardinality": {
+        "relevance": 0.4,
+        "direction": "risk",
+        "condition": "large duplicated branch work",
+        "basis": "set-op transposition can duplicate work across branches"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large set-operation branches",
+        "basis": "pushing operators through set branches helps only if branch work is reduced"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "JOIN_TO_CORRELATE": {
+    "operators": [
+      "JOIN",
+      "CORRELATE"
+    ],
+    "actions": [
+      "decorrelate_or_correlate"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.8,
+        "direction": "risk",
+        "condition": "many tables in FROM clause (>=8)",
+        "basis": "JOIN transformations can expand intermediate join structure"
+      },
+      "join_key_ndv": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "join key NDV affects selectivity",
+        "basis": "low NDV join keys risk many-to-many expansion"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "large input tables",
+        "basis": "high cardinality join inputs amplify transformation cost"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low",
+    "calibration_source": "execution_trace"
+  },
+  "PROJECT_JOIN_TRANSPOSE": {
+    "operators": [
+      "PROJECT",
+      "JOIN"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.7249,
+        "direction": "risk",
+        "condition": "many join tables",
+        "basis": "transposing project through wide join can increase complexity",
+        "base_relevance": 0.6,
+        "calibration": {
+          "n": 6,
+          "regression_rate": 0.5,
+          "improvement_rate": 0.0,
+          "avg_positive_delta": 0.2492,
+          "avg_negative_delta_abs": 0.0,
+          "adjustment": 0.1249,
+          "min_support": 5,
+          "levels": {
+            "medium:4": 1,
+            "high:9": 1,
+            "high:14": 2,
+            "high:8": 1,
+            "medium:7": 1
+          },
+          "method": "direction_preserving_trace_calibration"
+        }
+      },
+      "input_cardinality": {
+        "relevance": 0.3375,
+        "direction": "conditional",
+        "condition": "join input size",
+        "basis": "column pruning via PROJECT transpose is beneficial with large inputs",
+        "base_relevance": 0.4,
+        "calibration": {
+          "n": 6,
+          "regression_rate": 0.5,
+          "improvement_rate": 0.0,
+          "avg_positive_delta": 0.2492,
+          "avg_negative_delta_abs": 0.0,
+          "adjustment": -0.0625,
+          "min_support": 5,
+          "levels": {
+            "medium": 2,
+            "high": 4
+          },
+          "method": "direction_preserving_trace_calibration"
+        }
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "low",
+    "calibration_source": "execution_trace"
+  },
+  "FILTER_CORRELATE": {
+    "operators": [
+      "FILTER",
+      "CORRELATE"
+    ],
+    "actions": [
+      "decorrelate_or_correlate"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "filter predicates can reduce intermediate rows",
+        "basis": "FILTER ops reduce cardinality before expensive joins"
+      },
+      "mcv_skew": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "high MCV frequency on filtered column",
+        "basis": "skewed columns benefit most from early filter pushdown"
+      },
+      "histogram_skew": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "histogram shows non-uniform distribution",
+        "basis": "selectivity estimation more accurate with skew"
+      },
+      "null_fraction": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "high null fraction on filtered column",
+        "basis": "null-aware filter pushdown may or may not help"
+      },
+      "input_cardinality": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "large outer query cardinality",
+        "basis": "decorrelation on large outer reduces repeated inner execution"
+      },
+      "join_key_ndv": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "correlated column NDV",
+        "basis": "NDV affects decorrelated join size"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "SEMI_JOIN_FILTER_TRANSPOSE": {
+    "operators": [
+      "FILTER",
+      "JOIN"
+    ],
+    "actions": [
+      "transpose",
+      "semi_join_filtering"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.8,
+        "direction": "benefit",
+        "condition": "semi-join filters many rows from one side",
+        "basis": "semi-join is beneficial when it significantly reduces a join input"
+      },
+      "mcv_skew": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "high MCV frequency on filtered column",
+        "basis": "skewed columns benefit most from early filter pushdown"
+      },
+      "histogram_skew": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "histogram shows non-uniform distribution",
+        "basis": "selectivity estimation more accurate with skew"
+      },
+      "null_fraction": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "high null fraction on filtered column",
+        "basis": "null-aware filter pushdown may or may not help"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      },
+      "join_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "semi-join key NDV",
+        "basis": "semi-join selectivity depends on matching key cardinality"
+      },
+      "join_correlation": {
+        "relevance": 0.7,
+        "direction": "conditional",
+        "condition": "correlated join keys",
+        "basis": "correlated join attributes reduce effective cardinality"
+      },
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "JOIN_DERIVE_IS_NOT_NULL_FILTER_RULE": {
+    "operators": [
+      "JOIN",
+      "FILTER"
+    ],
+    "actions": [
+      "derive"
+    ],
+    "features": {
+      "null_fraction": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "join columns have non-trivial NULL fraction",
+        "basis": "derived IS NOT NULL filters help when nullable join keys can be pruned"
+      },
+      "filter_reduction_power": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "derived null filters prune rows",
+        "basis": "benefit depends on pruning power of derived predicates"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "high"
+  },
+  "INTERSECT_TO_DISTINCT": {
+    "operators": [
+      "INTERSECT"
+    ],
+    "actions": [
+      "distinct_conversion"
+    ],
+    "features": {
+      "dedup_key_ndv": {
+        "relevance": 0.8,
+        "direction": "risk",
+        "condition": "INTERSECT keys have high NDV",
+        "basis": "distinct conversion adds dedup/grouping work"
+      },
+      "setop_branch_cardinality": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "large intersect branch outputs",
+        "basis": "set-operation rewrite cost depends on branch cardinalities"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "medium"
+  },
+  "FILTER_AGGREGATE_TRANSPOSE": {
+    "operators": [
+      "FILTER",
+      "AGGREGATE"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "filter predicates can reduce intermediate rows",
+        "basis": "FILTER ops reduce cardinality before expensive joins"
+      },
+      "mcv_skew": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "high MCV frequency on filtered column",
+        "basis": "skewed columns benefit most from early filter pushdown"
+      },
+      "histogram_skew": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "histogram shows non-uniform distribution",
+        "basis": "selectivity estimation more accurate with skew"
+      },
+      "null_fraction": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "high null fraction on filtered column",
+        "basis": "null-aware filter pushdown may or may not help"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "JOIN_PROJECT_RIGHT_TRANSPOSE_INCLUDE_OUTER": {
+    "operators": [
+      "JOIN",
+      "PROJECT"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.65,
+        "direction": "risk",
+        "condition": "many join tables",
+        "basis": "same as LEFT transpose: outer join structural risk"
+      },
+      "join_correlation": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "join key correlation",
+        "basis": "outer join transpose is sensitive to correlated attributes"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "low",
+    "calibration_source": "execution_trace"
+  },
+  "JOIN_PROJECT_LEFT_TRANSPOSE_INCLUDE_OUTER": {
+    "operators": [
+      "JOIN",
+      "PROJECT"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "join_width": {
+        "relevance": 0.7749,
+        "direction": "risk",
+        "condition": "many join tables",
+        "basis": "transposing project through outer join increases structural complexity",
+        "base_relevance": 0.65,
+        "calibration": {
+          "n": 6,
+          "regression_rate": 0.5,
+          "improvement_rate": 0.0,
+          "avg_positive_delta": 0.2492,
+          "avg_negative_delta_abs": 0.0,
+          "adjustment": 0.1249,
+          "min_support": 5,
+          "levels": {
+            "medium:4": 1,
+            "high:9": 1,
+            "high:14": 2,
+            "high:8": 1,
+            "medium:7": 1
+          },
+          "method": "direction_preserving_trace_calibration"
+        }
+      },
+      "join_correlation": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "join key correlation",
+        "basis": "outer join transpose is sensitive to correlated attributes"
+      }
+    },
+    "source": "rule_specific_override",
+    "confidence": "low",
+    "calibration_source": "execution_trace"
+  },
+  "AGGREGATE_FILTER_TRANSPOSE": {
+    "operators": [
+      "FILTER",
+      "AGGREGATE"
+    ],
+    "actions": [
+      "transpose"
+    ],
+    "features": {
+      "filter_reduction_power": {
+        "relevance": 0.9,
+        "direction": "benefit",
+        "condition": "filter predicates can reduce intermediate rows",
+        "basis": "FILTER ops reduce cardinality before expensive joins"
+      },
+      "mcv_skew": {
+        "relevance": 0.6,
+        "direction": "benefit",
+        "condition": "high MCV frequency on filtered column",
+        "basis": "skewed columns benefit most from early filter pushdown"
+      },
+      "histogram_skew": {
+        "relevance": 0.5,
+        "direction": "benefit",
+        "condition": "histogram shows non-uniform distribution",
+        "basis": "selectivity estimation more accurate with skew"
+      },
+      "null_fraction": {
+        "relevance": 0.4,
+        "direction": "conditional",
+        "condition": "high null fraction on filtered column",
+        "basis": "null-aware filter pushdown may or may not help"
+      },
+      "group_key_ndv": {
+        "relevance": 0.6,
+        "direction": "conditional",
+        "condition": "aggregate key NDV relative to join",
+        "basis": "transposing agg/join order depends on which reduces rows more"
+      },
+      "input_cardinality": {
+        "relevance": 0.5,
+        "direction": "conditional",
+        "condition": "relative input sizes of transposed operators",
+        "basis": "transpose is beneficial when the pushed-down op reduces rows early"
+      },
+      "join_width": {
+        "relevance": 0.6,
+        "direction": "risk",
+        "condition": "wide join being transposed",
+        "basis": "transposing wide joins can create unexpected intermediate sizes"
+      }
+    },
+    "source": "operator_cost_prior + action_override",
+    "confidence": "low"
+  },
+  "_calibration_meta": {
+    "min_support": 5,
+    "alpha": 0.2,
+    "max_adjust": 0.25,
+    "note": "Deterministic calibration from analyze.py output_json; no LLM weight tuning."
+  }
+}
